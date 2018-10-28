@@ -7,7 +7,7 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions unless test?
     # set :session_secret, "secret" # [] change secret
-    
+    set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) } # from http://sinatrarb.com/intro.html
   end
 
   get "/" do

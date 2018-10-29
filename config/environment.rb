@@ -11,4 +11,3 @@ ActiveRecord::Base.establish_connection(
 require './app/controllers/application_controller'
 require_all 'app'
 require 'sysrandom/securerandom'
-require 'date'

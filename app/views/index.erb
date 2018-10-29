@@ -1,0 +1,15 @@
+<h1>Welcome To Quiet Places!</h1>
+<h2>Find where to converse and relax, in peace.</h2>
+
+<nav>
+  <% if logged_in? %>
+    <p>Welcome, <%=current_user.username %></p>
+    <br>
+    <a href="/reviews/new">Create Review</a>
+    <a href="/logout">Log Out</a>
+
+  <% else %>
+    <a href="/signup">Sign Up</a>
+    <a href="/login">Log In</a>
+  <%end %>
+</nav>

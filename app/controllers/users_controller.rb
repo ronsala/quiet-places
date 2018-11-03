@@ -1,37 +1,53 @@
 class UsersController < ApplicationController
 
-  # GET: /users
-  get "/users" do
-    erb :"/users/index.html"
+  get '/signup' do
+    if !logged_in?
+      erb :signup
+    else
+      redirect '/reviews/index.html.erb'
+    end
   end
 
-  # GET: /users/new
-  get "/users/new" do
-    erb :"/users/new.html"
+  post '/signup' do
+    if params[:username] == "" || params[:email] == "" || params[:password] == ""
+      redirect '/signup'
+    else
+      @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+      session[:user_id] = @user.id
+      redirect '/reviews/index.html.erb'
+    end
   end
 
-  # POST: /users
-  post "/users" do
-    redirect "/users"
+
+  get "/users/:slug" do
+    @user = User.find_by_slug(params[:slug])
+    erb :'users/show'
   end
 
-  # GET: /users/5
-  get "/users/:id" do
-    erb :"/users/show.html"
+  get '/login' do
+    if !logged_in?
+      erb :'users/login'
+    else
+      redirect '/reviews/index.html.erb'
+    end
   end
 
-  # GET: /users/5/edit
-  get "/users/:id/edit" do
-    erb :"/users/edit.html"
+  post '/login' do
+    @user = User.find_by(:username => params[:username])
+    if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
+      redirect '/reviews/index.html.erb'
+    else
+      redirect '/signup'
+    end
   end
 
-  # PATCH: /users/5
-  patch "/users/:id" do
-    redirect "/users/:id"
-  end
-
-  # DELETE: /users/5/delete
-  delete "/users/:id/delete" do
-    redirect "/users"
+  get '/logout' do
+    if logged_in?
+      session.clear
+      redirect '/login'
+    else
+      redirect '/'
+    end
   end
 end

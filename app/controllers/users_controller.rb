@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   get '/signup' do
     if !logged_in?
-      erb :signup
+      erb :"/users/signup"
     else
       redirect '/reviews/index.html.erb'
     end

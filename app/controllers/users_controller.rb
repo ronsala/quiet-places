@@ -4,15 +4,12 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :"/users/signup"
     else
-      redirect '/reviews/index.html.erb'
+      redirect '/reviews/index'
     end
   end
 
   post '/signup' do
-    # if params[:username] == "" || params[:email] == "" || params[:password] == ""
-    #   redirect '/signup'
-    # else
-      @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+      @user = User.create!(username: params[:username], email: params[:email], password: params[:password])
       session[:user_id] = @user.id
       redirect '/reviews/index.html.erb'
     # end

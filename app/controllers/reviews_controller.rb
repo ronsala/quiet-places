@@ -1,42 +1,42 @@
 class ReviewsController < ApplicationController
 
-  get "/places" do
+  get "/reviews" do
     redirect_if_not_logged_in
-    @places = Place.all
-    erb :"/places/index.html"
+    @reviews = Review.all
+    erb :"/reviews/index.html"
   end
 
-  get "/places/new" do
+  get "/reviews/new" do
     redirect_if_not_logged_in
-    erb :"/places/new.html"
+    erb :"/reviews/new.html"
   end
 
-  post "/places" do
+  post "/reviews" do
     redirect_if_not_logged_in
-    unless Place.valid_params?(params)
-      redirect "/places/new?error=Please include all required fields."
+    unless Review.valid_params?(params)
+      redirect "/reviews/new?error=Please include all required fields."
     end
-    Place.create(params)
-    redirect "/places"
+    Review.create(params)
+    redirect "/reviews"
   end
 
-  get "/places/:id" do
+  get "/reviews/:id" do
     redirect_if_not_logged_in
-    erb :"/places/show.html"
+    erb :"/reviews/show.html"
   end
 
-  get "/places/:id/edit" do
+  get "/reviews/:id/edit" do
     redirect_if_not_logged_in
-    erb :"/places/edit.html"
+    erb :"/reviews/edit.html"
   end
 
-  patch "/places/:id" do
+  patch "/reviews/:id" do
     redirect_if_not_logged_in
-    redirect "/places/:id"
+    redirect "/reviews/:id"
   end
 
-  delete "/places/:id/delete" do
+  delete "/reviews/:id/delete" do
     redirect_if_not_logged_in
-    redirect "/places"
+    redirect "/reviews"
   end
 end

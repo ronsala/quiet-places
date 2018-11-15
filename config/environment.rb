@@ -1,5 +1,7 @@
 ENV['SINATRA_ENV'] ||= "development"
 
+# []? Is this the right place for this line? See https://github.com/bkeepers/dotenv
+require 'dotenv/load'
 require 'bundler/setup'
 Bundler.require(:default, ENV['SINATRA_ENV'])
 

@@ -9,7 +9,6 @@ ActiveRecord::Base.establish_connection(
   :database => "db/#{ENV['SINATRA_ENV']}.sqlite"
 )
 
-# []? Is this the right place for these lines? See https://github.com/bkeepers/dotenv
 require 'dotenv'
 Dotenv.load
 

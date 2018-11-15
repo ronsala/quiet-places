@@ -6,9 +6,11 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions unless test?
-    # temp []
-    set :session_secret, "secret"
+    # []?
+    # set :session_secret, "secret"
     # set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) } # from http://sinatrarb.com/intro.html
+    set :session_secret, SECRET_KEY
+    binding.pry
   end
 
   get "/" do

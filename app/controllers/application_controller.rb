@@ -9,8 +9,8 @@ class ApplicationController < Sinatra::Base
     # []?
     # set :session_secret, "secret"
     # set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) } # from http://sinatrarb.com/intro.html
-    set :session_secret, SECRET_KEY
     binding.pry
+    set :session_secret, SECRET_KEY
   end
 
   get "/" do

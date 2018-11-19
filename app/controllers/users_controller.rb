@@ -4,17 +4,19 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :"/users/signup"
     else
-      redirect '/reviews/index'
+      erb :'/reviews/index'
     end
   end
 
   post '/signup' do
-      @user = User.create!(username: params[:username], email: params[:email], password: params[:password])
+    @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+    if @user.errors.any?
+      erb :'users/error'
+    else
       session[:user_id] = @user.id
-      redirect '/reviews/index.html.erb'
-    # end
+      redirect '/reviews'
+    end
   end
-
 
   get "/users/:slug" do
     @user = User.find_by_slug(params[:slug])

@@ -1,1 +1,15 @@
-<h1>This is the Model's index page.</h1>
+
+<h1>Welcome, <%=current_user.username%></h1>
+
+<h2>All Reviews</h2>
+
+<%@reviews.each do |review|%>
+    <%=review.title%>
+<%end%>
+<br>
+<a href="/reviews/new">Create Review</a><br>
+<br>
+<form method="post" action="/logout"> -->
+  <button type="submit" name="submit" id="submit" value="submit"></button> -->
+</form> -->
+

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :"/users/signup"
     else
-      erb :'/reviews/index'
+      redirect '/places'
     end
   end
 

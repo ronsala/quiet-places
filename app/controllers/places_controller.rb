@@ -1,9 +1,9 @@
 class PlacesController < ApplicationController
 
   get "/places" do
-    redirect_if_not_logged_in
+    # redirect_if_not_logged_in
     @places = Place.all
-    erb :"/places/index.html"
+    erb :"/places/index"
   end
 
   get "/places/new" do

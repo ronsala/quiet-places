@@ -1,7 +1,7 @@
 users = [
-  {username: "Emily", email: "emily@example.org"},
-  {username: "Felix", email: "felix@example.org"},
-  {username: "Zoe", email: "zoe@example.org"}
+  {username: "Emily", email: "emily@example.org", password: "emilypass"},
+  {username: "Felix", email: "felix@example.org", password: "felixpass"},
+  {username: "Zoe", email: "zoe@example.org", password: "zoepass"}
 ]
 
 users.each do |x|

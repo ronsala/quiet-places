@@ -9,6 +9,11 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
+    flash[:test] = "success"
+    binding.pry
+    if params[:password] != params[:password_confirm]
+      # [] flash message
+    end
     @user = User.create(username: params[:username], email: params[:email], password: params[:password])
     if @user.errors.any?
       erb :'users/error'

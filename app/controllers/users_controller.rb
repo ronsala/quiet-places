@@ -17,7 +17,13 @@ class UsersController < ApplicationController
     if @user.errors.any?
       erb :'users/error'
     else
-      @user.is_admin = true if params[:admin_key] == ENV["ADMIN_KEY"]
+      if params[:admin_key]
+        if params[:admin_key] == ENV["ADMIN_KEY"]
+          @user.is_admin = true
+        else
+          erb :'users/error' # [] or flash message?
+        end
+      end
       session[:user_id] = @user.id
       redirect '/places'
     end

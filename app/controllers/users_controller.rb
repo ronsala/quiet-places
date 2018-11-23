@@ -9,15 +9,15 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    # flash[:test] = "success"
-    # binding.pry
     if params[:password] != params[:password_confirm]
-      # [] flash message
+      # [] flash[:match] = "Passwords must match. Please try again."
     end
     @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+    # [] use flash instead of users/error?
     if @user.errors.any?
       erb :'users/error'
     else
+      @user.is_admin = true if params[:admin_key] == ENV["ADMIN_KEY"]
       session[:user_id] = @user.id
       redirect '/places'
     end

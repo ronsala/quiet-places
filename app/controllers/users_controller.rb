@@ -9,8 +9,8 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    flash[:test] = "success"
-    binding.pry
+    # flash[:test] = "success"
+    # binding.pry
     if params[:password] != params[:password_confirm]
       # [] flash message
     end

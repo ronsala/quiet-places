@@ -13,13 +13,15 @@ class UsersController < ApplicationController
       # [] flash[:match] = "Passwords must match. Please try again."
     end
     @user = User.create(username: params[:username], email: params[:email], password: params[:password])
-    # [] use flash instead of users/error?
+    # [] use flash instead of users/error? with flash redirect or render to /signup
     if @user.errors.any?
       erb :'users/error'
     else
       if params[:admin_key]
+        # binding.pry
         if params[:admin_key] == ENV["ADMIN_KEY"]
           @user.is_admin = true
+          @user.update
         else
           erb :'users/error' # [] or flash message?
         end
@@ -29,10 +31,11 @@ class UsersController < ApplicationController
     end
   end
 
-  get "/users/:slug" do
-    @user = User.find_by_slug(params[:slug])
-    erb :'users/show'
-  end
+  # [] remove
+  # get "/users/:slug" do
+  #   @user = User.find_by_slug(params[:slug])
+  #   erb :'users/show'
+  # end
 
   get '/login' do
     if !logged_in?

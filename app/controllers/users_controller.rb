@@ -31,12 +31,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # [] remove
-  # get "/users/:slug" do
-  #   @user = User.find_by_slug(params[:slug])
-  #   erb :'users/show'
-  # end
-
   get '/login' do
     if !logged_in?
       erb :'users/login'

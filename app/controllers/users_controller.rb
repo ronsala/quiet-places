@@ -21,7 +21,7 @@ class UsersController < ApplicationController
         # binding.pry
         if params[:admin_key] == ENV["ADMIN_KEY"]
           @user.is_admin = true
-          @user.update
+          @user.save
         else
           erb :'users/error' # [] or flash message?
         end

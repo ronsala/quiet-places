@@ -10,7 +10,8 @@ class UsersController < ApplicationController
 
   post '/signup' do
     if params[:password] != params[:password_confirm]
-      # [] flash[:match] = "Passwords must match. Please try again."
+      flash[:match] = "Passwords must match. Please try again."
+      redirect '/signup'
     end
     @user = User.create(username: params[:username], email: params[:email], password: params[:password])
     # [] use flash instead of users/error? with flash redirect or render to /signup
@@ -18,7 +19,6 @@ class UsersController < ApplicationController
       erb :'users/error'
     else
       if params[:admin_key]
-        # binding.pry
         if params[:admin_key] == ENV["ADMIN_KEY"]
           @user.is_admin = true
           @user.save

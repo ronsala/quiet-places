@@ -6,11 +6,11 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions unless test?
+    register Sinatra::Flash
     set :session_secret, ENV["SECRET_KEY"]
   end
 
   get "/" do
-    # flash[:notice] = "Hooray, Flash is working!" []
     erb :index
   end
 

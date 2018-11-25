@@ -17,9 +17,18 @@ class ReviewsController < ApplicationController
   post "/reviews/new" do
     redirect_if_not_logged_in
     @review = Review.create(place_id: params[:place_id], title: params[:title], tv: params[:tv], volume: params[:volume], quality: params[:quality], body: params[:body])
-    @review.user_id = current_user.id
-    @review.save
-    redirect "/reviews/#{@review.id}"
+    if @review.errors.any?
+      if @review.errors.messages[:title]
+        flash[:title] = "Title #{@review.errors.messages[:title][0]}. Please try again."
+      elsif @review.errors.messages[:body]
+        flash[:body] = "Review body #{@review.errors.messages[:body][0]}. Please try again."
+      end
+      redirect '/reviews/new'
+    else
+      @review.user_id = current_user.id
+      @review.save
+      redirect "/reviews/#{@review.id}"
+    end
   end
 
   get "/reviews/:id" do

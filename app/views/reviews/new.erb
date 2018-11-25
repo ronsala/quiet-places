@@ -4,7 +4,7 @@
 <form action="/reviews/new" method="POST">
   <%Place.all.each do |place|%>
     <input type="checkbox" name="place_id" id="<%= place.name %>" value="<%=place.id%>"><%=place.name%></input>
-  <%end%><br>
+  <%end%><br><br>
   <p>Title * <input type="text" name="title"></p>
     <% if flash[:title] %>
       <p><strong><%= flash[:title] %></strong></p>
@@ -51,6 +51,9 @@
   </select><br><br>
 
   <p>Your Review:</p>
+    <% if flash[:body] %>
+      <p><strong><%= flash[:body] %></strong></p>
+    <% end %>
   <textarea id="body" name="body"
             rows="10" cols="150">
   </textarea><br>

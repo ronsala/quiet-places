@@ -10,7 +10,6 @@ class UsersController < ApplicationController
 
   post '/signup' do
     if params[:password] != params[:password_confirm]
-      binding.pry
       flash[:match] = "Passwords must match. Please try again."
       redirect '/signup'
     else
@@ -18,8 +17,11 @@ class UsersController < ApplicationController
       if @user.errors.any?
         if @user.errors.messages[:username]
           flash[:user] = "Username #{@user.errors.messages[:username][0]}. Please try again."
+        elsif @user.errors.messages[:email]
+          flash[:email] = "Email #{@user.errors.messages[:email][0]}. Please try again."
+        elsif @user.errors.messages[:password]
+          flash[:password] = "Password #{@user.errors.messages[:password][0]}. Please try again."
         end
-        binding.pry
         redirect '/signup'
       else
         if params[:admin_key] != ""
@@ -27,7 +29,7 @@ class UsersController < ApplicationController
             @user.is_admin = true
             @user.save
           else
-            binding.pry
+            flash[:admin_mismatch] = "Admin key not recognized. Please try again."
             redirect '/signup'
           end
         else

@@ -27,7 +27,10 @@ class UsersController < ApplicationController
         if params[:admin_key] != ""
           if params[:admin_key] == ENV["ADMIN_KEY"]
             @user.is_admin = true
+            binding.pry
             @user.save
+            session[:user_id] = @user.id
+            redirect '/places'
           else
             flash[:admin_mismatch] = "Admin key not recognized. Please try again."
             redirect '/signup'

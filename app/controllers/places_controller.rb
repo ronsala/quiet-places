@@ -13,6 +13,8 @@ class PlacesController < ApplicationController
 
   post "/places/new" do
     redirect_if_not_logged_in
+    binding.pry
+
     @place = Place.create(name: params[:name], street: params[:street], city: params[:city], state: params[:state], category: params[:category], website: params[:website])
     # if @place.errors.any?
     #   if @user.errors.messages[:username]
@@ -24,12 +26,13 @@ class PlacesController < ApplicationController
     #   end
     #   redirect '/signup'
     # end
-    redirect "/places"
+    # binding.pry
+    redirect "/places/#{@place.id}"
   end
 
   get "/places/:id" do
     redirect_if_not_logged_in
-    erb :"/places/show.html"
+    erb :"/places/show.erb"
   end
 
   get "/places/:id/edit" do

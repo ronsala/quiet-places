@@ -5,6 +5,7 @@
   <% if logged_in? %>
     <p>Welcome, <%=current_user.username %></p>
     <br>
+    <a href="/places/new">Create Place</a>
     <a href="/reviews/new">Create Review</a>
     <a href="/logout">Log Out</a>
 

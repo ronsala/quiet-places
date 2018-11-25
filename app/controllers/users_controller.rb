@@ -18,8 +18,6 @@ class UsersController < ApplicationController
       if @user.errors.messages[:username]
         flash[:user] = "Username #{@user.errors.messages[:username][0]}. Please try again."
       end
-      # binding.pry
-      # erb :'users/error'
       redirect '/signup'
     else
       if params[:admin_key]

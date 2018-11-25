@@ -13,31 +13,29 @@ class PlacesController < ApplicationController
 
   post "/places/new" do
     redirect_if_not_logged_in
-    binding.pry
-
     @place = Place.create(name: params[:name], street: params[:street], city: params[:city], state: params[:state], category: params[:category], website: params[:website])
-    # if @place.errors.any?
-    #   if @user.errors.messages[:username]
-    #     flash[:place_error] = "Username #{@user.errors.messages[:username][0]}. Please try again."
-    #   elsif @user.errors.messages[:email]
-    #     flash[:email] = "Email #{@user.errors.messages[:email][0]}. Please try again."
-    #   elsif @user.errors.messages[:password]
-    #     flash[:password] = "Password #{@user.errors.messages[:password][0]}. Please try again."
-    #   end
-    #   redirect '/signup'
-    # end
-    # binding.pry
-    redirect "/places/#{@place.id}"
+    if @place.errors.any?
+      if @place.errors.messages[:name]
+        flash[:name] = "Name #{@place.errors.messages[:name][0]}. Please try again."
+      elsif @place.errors.messages[:street]
+        flash[:street] = "Street #{@place.errors.messages[:street][0]}. Please try again."
+      elsif @place.errors.messages[:city]
+        flash[:city] = "City #{@place.errors.messages[:city][0]}. Please try again."
+      end
+      redirect '/places/new'
+    else
+      redirect "/places/#{@place.id}"
+    end
   end
 
   get "/places/:id" do
     redirect_if_not_logged_in
-    erb :"/places/show.erb"
+    erb :"/places/show"
   end
 
   get "/places/:id/edit" do
     redirect_if_not_logged_in
-    erb :"/places/edit.html"
+    erb :"/places/edit"
   end
 
   patch "/places/:id" do

@@ -1,21 +1,17 @@
 <h3>Sign Up</h3>
 <br>
-<% if @user %>
-  <% if @user.errors%>
-    <% @user.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  <% end %>
-<% end %>
-<% if flash[:match] %>
-  <%= flash[:match] %>
-<% end %>
 <p>* Required</p>
 <form action="/signup" method="POST">
   <p>Username * <input type="text" name="username"></p>
+  <% if flash[:user] %>
+    <p><strong><%= flash[:user] %></strong></p>
+  <% end %>
   <p>Email * <input type="text" name="email"></p>
   <p>Password * <input type="password" name="password"></p>
   <p>Retype Password * <input type="password" name="password_confirm"></p>
+  <% if flash[:match] %>
+    <%= flash[:match] %><br>
+<% end %>
   <br>
   <p>Have an admin key? Enter it here: <input type="text" name="admin_key"></p>
   <input class="btn btn-primary" type="submit">

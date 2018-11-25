@@ -14,9 +14,13 @@ class UsersController < ApplicationController
       redirect '/signup'
     end
     @user = User.create(username: params[:username], email: params[:email], password: params[:password])
-    # [] use flash instead of users/error? with flash redirect or render to /signup
     if @user.errors.any?
-      erb :'users/error'
+      if @user.errors.messages[:username]
+        flash[:user] = "Username #{@user.errors.messages[:username][0]}. Please try again."
+      end
+      # binding.pry
+      # erb :'users/error'
+      redirect '/signup'
     else
       if params[:admin_key]
         if params[:admin_key] == ENV["ADMIN_KEY"]

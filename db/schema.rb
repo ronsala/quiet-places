@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20181028223125) do
 
   create_table "places", force: :cascade do |t|
+    t.integer  "user_id"
     t.string   "name"
     t.string   "street"
     t.string   "city"

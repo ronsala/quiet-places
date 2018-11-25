@@ -1,1 +1,58 @@
-<h1>Write a Review</h1>
+<h3>Write a review</h3>
+<br>
+<p>* Required</p>
+<form action="/reviews/new" method="POST">
+  <%Place.all.each do |place|%>
+    <input type="checkbox" name="place_id" id="<%= place.name %>" value="<%=place.id%>"><%=place.name%></input>
+  <%end%><br>
+  <p>Title * <input type="text" name="title"></p>
+    <% if flash[:title] %>
+      <p><strong><%= flash[:title] %></strong></p>
+    <% end %>
+  <p>TV:</p>
+    <div>
+      <input type="radio" id="true" name="tv" value="true" checked>
+      <label for="true">True</label>
+    </div>
+
+    <div>
+      <input type="radio" id="false" name="tv" value="false">
+      <label for="false">False</label>
+    </div><br>
+
+  <p>Volume:</p>
+    <select name="volume">
+    <option value="--">--</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+  </select><br><br>
+
+  <p>Quality:</p>
+    <select name="quality">
+    <option value="--">--</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+  </select><br><br>
+
+  <p>Your Review:</p>
+  <textarea id="story" name="story"
+            rows="10" cols="150">
+  </textarea><br>
+  <input class="btn btn-primary" type="submit">
+</form>

@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20181028223125) do
     t.integer  "user_id"
     t.integer  "place_id"
     t.string   "title"
-    t.datetime "visit"
     t.boolean  "tv"
     t.integer  "volume"
     t.integer  "quality"

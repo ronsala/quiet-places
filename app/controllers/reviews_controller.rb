@@ -10,22 +10,21 @@ class ReviewsController < ApplicationController
   end
 
   get "/reviews/new" do
-    # test logged_in?
-    erb :"/reviews/new.html"
+    redirect_if_not_logged_in
+    erb :"/reviews/new"
   end
 
-  post "/reviews" do
-    # test logged_in?
-    unless Review.valid_params?(params)
-      redirect "/reviews/new?error=Please include all required fields."
-    end
-    Review.create(params)
-    redirect "/reviews"
+  post "/reviews/new" do
+    redirect_if_not_logged_in
+    @review = Review.create(place_id: params[:place_id], title: params[:title], tv: params[:tv], volume: params[:volume], quality: params[:quality], body: params[:body])
+    @review.user_id = current_user.id
+    @review.save
+    redirect "/reviews/#{@review.id}"
   end
 
   get "/reviews/:id" do
-    # test logged_in?
-    erb :"/reviews/show.html"
+    redirect_if_not_logged_in
+    erb :"/reviews/show"
   end
 
   get "/reviews/:id/edit" do

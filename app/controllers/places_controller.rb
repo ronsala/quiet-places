@@ -30,23 +30,24 @@ class PlacesController < ApplicationController
     end
   end
 
-  get "/places/:id" do
-    redirect_if_not_logged_in
-    erb :"/places/show"
-  end
-
   get "/places/:id/edit" do
     redirect_if_not_logged_in
     erb :"/places/edit"
   end
 
-  patch "/places/:id" do
-    redirect_if_not_logged_in
-    redirect "/places/:id"
-  end
-
   delete "/places/:id/delete" do
     redirect_if_not_logged_in
     redirect "/places"
+  end
+
+  get "/places/:id" do
+    redirect_if_not_logged_in
+    @place = Place.find(params[:id])
+    erb :"/places/show"
+  end
+
+  patch "/places/:id" do
+    redirect_if_not_logged_in
+    redirect "/places/:id"
   end
 end

@@ -1,1 +1,12 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<h3><%= @place.name %></h3>
+<br>
+<p><%= @place.street %></p>
+<p><%= @place.city %>, <%= @place.state %></p>
+<p><a href="<%= @place.website %>>/edit"><%= @place.website %></a></p>
+<br>
+
+<% @place.reviews.title.each do | review |%>
+  <p><a href="/reviews/#{review.id}"><%=review.title%></a></p>
+<%end%>
+<a href="/places/<%=@place.id%>/edit">Edit </a>
+<a href="/places/<%=@place.id%>/delete">Delete</a>

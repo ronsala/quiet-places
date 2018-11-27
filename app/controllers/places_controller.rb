@@ -26,6 +26,9 @@ class PlacesController < ApplicationController
     else
       @place.user_id = current_user.id
       @place.save
+      @user = User.find(@place.user_id)
+      @user.places << @place
+      @user.save
       redirect "/places/#{@place.id}"
     end
   end

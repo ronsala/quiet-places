@@ -3,4 +3,5 @@ class User < ActiveRecord::Base
   validates :username, :email, uniqueness: true
   has_secure_password
   has_many :reviews
+  has_many :places
 end

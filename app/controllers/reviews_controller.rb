@@ -27,6 +27,9 @@ class ReviewsController < ApplicationController
     else
       @review.user_id = current_user.id
       @review.save
+      @place = Place.find(@review.place_id)
+      @place.reviews << @review
+      @place.save
       redirect "/reviews/#{@review.id}"
     end
   end

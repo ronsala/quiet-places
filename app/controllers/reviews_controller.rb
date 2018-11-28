@@ -39,6 +39,8 @@ class ReviewsController < ApplicationController
 
   get "/reviews/:id" do
     redirect_if_not_logged_in
+    @review = Review.find(params[:id])
+    @place = Place.find(@review.place_id)
     erb :"/reviews/show"
   end
 

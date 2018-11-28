@@ -1,1 +1,6 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<h2><%= @review.title %></h2>
+<br>
+<h3><%= @place.name %></h3>
+<a href="/">Home</a>
+<a href="/reviews/<%=@review.id%>/edit">Edit</a>
+<a href="/reviews/<%=@review.id%>/delete">Delete</a>

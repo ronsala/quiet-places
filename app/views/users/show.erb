@@ -1,1 +1,12 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<h2><%= @user.username %> </h2>
+<% if @user.is_admin %>
+  <p>Admin</p>
+<% end %>
+<br>
+<% if current_user.id == @user.id %>
+  <p><%= @user.email %></p>
+<% end %>
+
+<a href="/">Home</a>
+<a href="/users/<%=@user.id%>/edit">Edit</a>
+<a href="/users/<%=@user.id%>/delete">Delete</a>

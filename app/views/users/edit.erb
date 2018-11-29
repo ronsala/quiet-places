@@ -1,1 +1,37 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<h2><%= @user.username %> </h2>
+<% if @user.is_admin %>
+  <p>Admin</p>
+<% end %>
+<br>
+<% if current_user.id == @user.id %>
+  <p><%= @user.email %></p>
+<% end %>
+
+<form action="/users/:id" method="POST">
+  <p>Current Username: <%= @user.username %></p>
+  <p>New Username: <input type="text" name="username"></p>
+    <% if flash[:user] %>
+      <p><strong><%= flash[:user] %></strong></p>
+    <% end %>
+  <p>Current Email: <%= @user.email %></p>
+  <p>New Email: <input type="text" name="email"></p>
+    <% if flash[:email] %>
+      <p><strong><%= flash[:email] %></strong></p>
+    <% end %>
+  <p>New Password: <input type="password" name="password"></p>
+    <% if flash[:password] %>
+      <p><strong><%= flash[:password] %></strong></p>
+    <% end %>
+  <p>Retype New Password: <input type="password" name="password_confirm"></p>
+    <% if flash[:match] %>
+      <p><strong><%= flash[:match] %></strong></p><br>
+    <% end %>
+  <br>
+  <p>Are you not currently an admin and have an admin key? Enter it here: <input type="text" name="admin_key"></p>
+    <% if flash[:admin_mismatch] %>
+      <p><strong><%= flash[:admin_mismatch] %></strong></p><br>
+    <% end %>
+  <input class="btn btn-primary" type="submit">
+</form>
+<br>
+<a href="/">Home</a>

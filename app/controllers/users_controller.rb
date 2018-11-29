@@ -49,6 +49,21 @@ class UsersController < ApplicationController
     erb :"/users/show"
   end
 
+  get "/users/:id/edit" do
+    redirect_if_not_logged_in
+    @user = User.find(params[:id])
+    erb :"/users/edit"
+  end
+
+  post "/users/:id" do
+    redirect_if_not_logged_in
+    @user = User.find(params[:id])
+    if current_user.id == @user.id
+      @user.update(username: params[:username], email: params[:email], password: params[:password])
+    end
+    redirect "/users/#{@user.id}"
+  end
+
   get '/login' do
     if !logged_in?
       erb :'users/login'

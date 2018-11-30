@@ -1,3 +1,8 @@
+  h5 {
+    color: purple;
+    size: 100px;
+  }
+
 @media screen {
   /* --- Reset Styles --- */
   * {
@@ -13,7 +18,7 @@
 
   /* --- Welcome Page Styles --- */
   body {
-    background-color: lightblue;
+    background-color: green;
     color: #333;
     font-family: Sans-Serif;
     line-height: 18px;
@@ -36,10 +41,11 @@
   }
 
   h2 {
-    border-bottom: 2px solid #ccc;
-    font-size: 24px;
+    border-bottom: 2px solid green;
+    font-size: 48px;
     line-height: 36px;
     margin-bottom: 16px;
+    color: goldenrod;
   }
 
   h3 {
@@ -48,7 +54,8 @@
   }
 
   p {
-    margin-bottom: 18px;
+    margin-bottom: 5px;
+    color: red;
   }
 
   .main {

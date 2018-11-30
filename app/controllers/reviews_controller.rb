@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
     if !logged_in?
       erb :'users/login'
     else
-      @reviews = Review.all
+      @reviews = Review.all.order(:title)
       erb :"/reviews/index"
     end
   end
@@ -40,7 +40,6 @@ class ReviewsController < ApplicationController
   get "/reviews/:id" do
     redirect_if_not_logged_in
     @review = Review.find(params[:id])
-    # binding.pry
     @place = Place.find(@review.place_id)
     @user = User.find(@review.user_id)
     erb :"/reviews/show"

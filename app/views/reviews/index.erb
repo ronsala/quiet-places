@@ -1,10 +1,7 @@
-
-<h2>Welcome, <%=current_user.username%></h2>
-
 <h2>All Reviews</h2>
 
 <%@reviews.each do |review|%>
-    <p><%=review.title%></p>
+    <p><a href='/reviews/<%=review.id%>'><%=review.title%></a></p>
 <%end%>
-
+<br>
 <p><a href="/reviews/new">Create Review</a></p>

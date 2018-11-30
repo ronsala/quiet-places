@@ -15,15 +15,6 @@
   </head>
   <body>
     <div class="wrapper">
-      <% if logged_in? %>
-        <strong>Logged in as <a href='/users/<%= current_user.id %>'><%= current_user.username %></strong></a>
-      <% end %>
-      <% if logged_in? && current_user.is_admin %>
-        <p><em>Admin account</em></p>
-      <% end %>
-
-        <%= yield %>
-
       <nav>
         <% unless request.env['PATH_INFO'] == "/" %>
           <a href="/">Home</a>
@@ -35,10 +26,21 @@
         <a href="/places">Places</a>
         <a href="/reviews">Reviews</a>
         <% if logged_in? %>
-        <a href="/users/<% current_user.id %>">Account</a> 
+        <a href="/users/<%= current_user.id %>">Account</a> 
         <a href="/logout">Log Out</a>
         <% end %>
       </nav>
+      <br>
+      <% if logged_in? %>
+        <strong>Logged in as <a href='/users/<%= current_user.id %>'><%= current_user.username %></strong></a>
+      <% end %>
+      <% if logged_in? && current_user.is_admin %>
+        <p><em>Admin account</em></p>
+      <% end %>
+      <br>
+
+        <%= yield %>
+
       <footer class="branding">
         <small>&copy; 2018 <strong>Ron Sala</strong></small>
       </footer>

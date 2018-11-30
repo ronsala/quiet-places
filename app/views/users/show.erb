@@ -2,10 +2,10 @@
 
 <% if current_user.id == @user.id %>
   <p><%= @user.email %></p>
-  <p><a href="/users/<%=@user.id%>/edit">Edit</a>
-  <a href="/users/<%=@user.id%>/delete">Delete</a></p>
+  <p><a href="/users/<%=@user.id%>/edit">Edit Account</a>
+  <a href="/users/<%=@user.id%>/delete">Delete Account</a></p>
 <% end %>
-
+<h3><%= @user.username %>'s Reviews</h3>
 <% @user.reviews.each do | review | %>
   <p><a href='/reviews/<%= review.id %>'><%= review.title %></a></p>
 <% end %>

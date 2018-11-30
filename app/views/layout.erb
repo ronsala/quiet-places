@@ -21,6 +21,19 @@
 
         <%= yield %>
 
+      <nav>
+        <% if logged_in? %>
+          <a href="/">Home</a>
+        <% end %>
+        <a href="/signup">Sign Up</a>
+        <a href="/login">Log In</a>
+        <a href="/places">Places</a>
+        <a href="/reviews">Reviews</a>
+        <% if logged_in? %>
+        <a href="/users/<% current_user.id %>">Account</a> 
+        <a href="/logout">Log Out</a>
+        <% end %>
+      </nav>
       <footer class="branding">
         <small>&copy; 2018 <strong>Ron Sala</strong></small>
       </footer>

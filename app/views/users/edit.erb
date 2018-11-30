@@ -6,7 +6,6 @@
 <% if current_user.id == @user.id %>
   <p><%= @user.email %></p>
 <% end %>
-binding.pry
 <form action="/users/<%= @user.id %>" method="POST">
   <p>Current Username: <%= @user.username %></p>
   <p>New Username: <input type="text" name="username"></p>
@@ -32,6 +31,4 @@ binding.pry
       <p><strong><%= flash[:admin_mismatch] %></strong></p><br>
     <% end %>
   <input class="btn btn-primary" type="submit">
-</form>
-<br>
-<a href="/">Home</a>
+</form><br>

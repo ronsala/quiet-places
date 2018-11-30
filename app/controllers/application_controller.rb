@@ -20,7 +20,12 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
+      # binding.pry
+      if logged_in?
       User.find(session[:user_id])
+      else
+        erb :index
+      end
     end
 
     def redirect_if_not_logged_in

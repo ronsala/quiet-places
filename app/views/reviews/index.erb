@@ -1,15 +1,10 @@
 
-<h1>Welcome, <%=current_user.username%></h1>
+<h2>Welcome, <%=current_user.username%></h2>
 
 <h2>All Reviews</h2>
 
 <%@reviews.each do |review|%>
-    <%=review.title%>
+    <p><%=review.title%></p>
 <%end%>
-<br>
-<a href="/reviews/new">Create Review</a><br>
-<br>
-<form method="post" action="/logout"> -->
-  <button type="submit" name="submit" id="submit" value="submit"></button> -->
-</form> -->
 
+<p><a href="/reviews/new">Create Review</a></p>

@@ -1,5 +1,3 @@
-<h1>Welcome, <%=current_user.username%></h1>
-
 <h2>All Places</h2>
 
 <%@places.each do |place|%>
@@ -7,6 +5,4 @@
   <%# [] + hyperlinks %>
 <%end%>
 <br>
-<a href="/places/new">Create Place </a>
-<a href="/reviews/new">Create Review </a>
-<a href="/logout">Log Out</a>
+<p><a href="/places/new">Create Place</a></p>

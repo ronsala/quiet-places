@@ -22,11 +22,13 @@
         <%= yield %>
 
       <nav>
-        <% if logged_in? %>
+        <% unless request.env['PATH_INFO'] == "/" %>
           <a href="/">Home</a>
         <% end %>
-        <a href="/signup">Sign Up</a>
-        <a href="/login">Log In</a>
+        <% if !logged_in? %>
+          <a href="/signup">Sign Up</a>
+          <a href="/login">Log In</a>
+        <% end %>
         <a href="/places">Places</a>
         <a href="/reviews">Reviews</a>
         <% if logged_in? %>

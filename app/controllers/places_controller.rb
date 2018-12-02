@@ -46,6 +46,7 @@ class PlacesController < ApplicationController
   get "/places/:id" do
     redirect_if_not_logged_in
     @place = Place.find(params[:id])
+    binding.pry
     erb :"/places/show"
   end
 

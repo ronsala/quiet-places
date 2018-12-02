@@ -46,8 +46,10 @@ class ReviewsController < ApplicationController
   end
 
   get "/reviews/:id/edit" do
-    # test logged_in?
-    erb :"/reviews/edit.html"
+    redirect_if_not_logged_in
+    binding.pry
+    @review = Review.find(params[:id])
+    erb :"/reviews/edit"
   end
 
   patch "/reviews/:id" do

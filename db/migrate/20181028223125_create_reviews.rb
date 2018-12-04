@@ -4,7 +4,7 @@ class CreateReviews < ActiveRecord::Migration
       t.integer :user_id
       t.integer :place_id
       t.string :title
-      t.boolean :tv
+      t.string :tv
       t.integer :volume
       t.integer :quality
       t.text :body

@@ -1,6 +1,6 @@
 <h2><%= @review.title %> by <a href="/users/<%= @user.id %>"><%= @user.username %></a></h2>
 <br>
-<h3><%= @place.name %></h3>
+<h3><a href="/places/<%= @place.id %>"><%= @place.name %></a></h3>
 <p><%= @place.street %>, <%= @place.city %>, <%= @place.state %></p>
 <p>TV on?: <%= @review.tv %></p>
 <p>Place Volume: <%= @review.volume %></p>

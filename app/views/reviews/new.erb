@@ -1,8 +1,9 @@
-<h3>Review <% @place.name %></h3>
+<h3>Review <%= @place.name %></h3>
 <br>
 <p>* Required</p>
 <p>Place:</p>
 <form action="/reviews/new" method="POST">
+  <input type="hidden" name="place_id" id="<%= @place.id %>" value="<%= @place.id %>"></input>>
   <%Place.all.each do |place|%>
     <input type="checkbox" name="place_id" id="<%= place.name %>" value="<%=place.id%>"><%=place.name%></input>
   <%end%><br><br>

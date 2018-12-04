@@ -6,6 +6,9 @@
 <p>Place Volume: <%= @review.volume %></p>
 <p>Place Quality: <%= @review.quality %></p>
 <p><%= @review.body %></p>
+<br>
 
-<p><a href="/reviews/<%=@review.id%>/edit">Edit</a>
-<a href="/reviews/<%=@review.id%>/delete">Delete</a></p>
+<% if current_user == @review.user %>
+  <p><a href="/reviews/<%=@review.id%>/edit">Edit</a>
+  <a href="/reviews/<%=@review.id%>/delete">Delete</a></p>
+<% end %>

@@ -10,7 +10,7 @@ class PlacesController < ApplicationController
     erb :"/places/new"
   end
 
-  post "/places/new" do
+  post "/places" do
     redirect_if_not_logged_in
     @place = Place.create(name: params[:name], street: params[:street], city: params[:city], state: params[:state], category: params[:category], website: params[:website])
     if @place.errors.any?
@@ -59,7 +59,6 @@ class PlacesController < ApplicationController
     unless params[:website] == ""
       @place.update(website: params[:website])
     end
-    # @place.update(name: params[:name], street: params[:street], city: params[:city], state: params[:state], category: params[:category], website: params[:website])
     redirect "/places/#{@place.id}"
   end
 

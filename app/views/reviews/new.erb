@@ -1,6 +1,7 @@
-<h3>Write a review</h3>
+<h3>Review <% @place.name %></h3>
 <br>
 <p>* Required</p>
+<p>Place:</p>
 <form action="/reviews/new" method="POST">
   <%Place.all.each do |place|%>
     <input type="checkbox" name="place_id" id="<%= place.name %>" value="<%=place.id%>"><%=place.name%></input>
@@ -9,14 +10,15 @@
     <% if flash[:title] %>
       <p><strong><%= flash[:title] %></strong></p>
     <% end %>
-  <p>TV:</p>
-  <p><select name="tv">
-    <option value="">--</option>
+  <br>
+  <p>TV On?:
+  <select name="tv">
+    <option value="--">--</option>
     <option value="yes">Yes</option>
     <option value="no">No</option>
-    </select><br><br>
+    </select></p>
 
-  <p>Volume:</p>
+  <p>Overall Volume:
     <select name="volume">
     <option value="--">--</option>
     <option value="1">1</option>
@@ -29,9 +31,9 @@
     <option value="8">8</option>
     <option value="9">9</option>
     <option value="10">10</option>
-  </select><br><br>
+  </select></p>
 
-  <p>Quality:</p>
+  <p>Quality of Experience:
     <select name="quality">
     <option value="--">--</option>
     <option value="1">1</option>
@@ -44,14 +46,14 @@
     <option value="8">8</option>
     <option value="9">9</option>
     <option value="10">10</option>
-  </select><br><br>
+  </select></p>
 
-  <p>Your Review:</p>
+  <p>Your Review:
     <% if flash[:body] %>
       <p><strong><%= flash[:body] %></strong></p>
     <% end %>
   <textarea id="body" name="body"
             rows="10" cols="94">
-  </textarea><br>
+  </textarea></p>
   <input class="btn btn-primary" type="submit">
 </form><br>

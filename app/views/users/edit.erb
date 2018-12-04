@@ -3,6 +3,11 @@
 <% if current_user.id == @user.id %>
   <p><%= @user.email %></p>
 <% end %>
+
+<% if flash[:messages] %>
+  <p><strong><%= flash[:messages] %></strong></p>
+<% end %>
+
 <form action="/users/<%= @user.id %>" method="POST">
   <p>Current Username: <%= @user.username %></p>
   <p>New Username: <input type="text" name="username"></p>

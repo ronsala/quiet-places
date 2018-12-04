@@ -52,20 +52,46 @@ class UsersController < ApplicationController
 
   get "/users/:id/edit" do
     @user = User.find(params[:id])
-    unless current_user == @user
+    unless current_user == @user || current_user.is_admin
       redirect "/"
     end
     erb :"/users/edit"
   end
 
   post "/users/:id" do
-    redirect_if_not_logged_in
     @user = User.find(params[:id])
-    @reviews = @user.reviews
-    if current_user.id == @user.id
-      @user.update(username: params[:username], email: params[:email], password: params[:password])
+
+    unless current_user == @user || current_user.is_admin
+      redirect "/"
     end
-    redirect "/users/#{@user.id}"
+
+    @reviews = @user.reviews
+    @user.errors.clear
+
+    unless params[:password] == params[:password_confirm]
+      binding.pry
+      redirect "/users/#{@user.id}/edit"
+    end
+
+    unless params[:username] == ""
+      @user.update(username: params[:username])
+    end
+
+    unless params[:email] == ""
+      @user.update(email: params[:email])
+    end
+
+    unless params[:password] == "" || 
+      @user.update(password: params[:password])
+    end
+
+    if @user.errors.messages != {}
+      flash[:messages] = "#{@user.errors.full_messages[0]}. Please try again."
+      binding.pry
+      redirect "/users/#{@user.id}/edit"
+    else
+      redirect "/users/#{@user.id}"
+    end
   end
 
   get '/login' do

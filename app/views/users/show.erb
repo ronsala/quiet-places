@@ -15,7 +15,7 @@
 <% end %>
 <br>
 
-<% if current_user.id == @user.id %>
+<% if current_user == @user || current_user.is_admin %>
   <p><a href="/users/<%=@user.id%>/edit">Edit</a>
   <a href="/users/<%= @user.id %>/delete">Delete</a></p>
 <% end %>

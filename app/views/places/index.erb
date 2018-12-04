@@ -1,10 +1,8 @@
-<h2>All Places</h2>
-  <% if flash[:successful_login] %>
-    <p><strong><%= flash[:successful_login] %></strong></p>
-  <% end %>
+<h2>Places</h2>
+
   <%@places.each do |place|%>
-  <%=place.name%><br>
-  <%# [] + hyperlinks %>
+    <p><a href='/places/<%= place.id %>'><%= place.name %></a></p>
   <%end%>
 <br>
+
 <p><a href="/places/new">Create Place</a></p>

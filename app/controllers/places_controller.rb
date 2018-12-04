@@ -1,8 +1,7 @@
 class PlacesController < ApplicationController
 
   get "/places" do
-    redirect_if_not_logged_in
-    @places = Place.all
+    @places = Place.all.order(:name)
     erb :"/places/index"
   end
 
@@ -44,7 +43,6 @@ class PlacesController < ApplicationController
   end
 
   get "/places/:id" do
-    redirect_if_not_logged_in
     @place = Place.find(params[:id])
     erb :"/places/show"
   end

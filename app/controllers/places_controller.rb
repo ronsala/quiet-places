@@ -33,17 +33,19 @@ class PlacesController < ApplicationController
   end
 
   get "/places/:id/edit" do
-    redirect_if_not_logged_in
     @place = Place.find(params[:id])
+    unless current_user == @place.user
+      redirect "/"
+    end
     erb :"/places/edit"
   end
 
   post "/places/:id" do
     @place = Place.find(params[:id])
-    @place.errors.clear
     unless current_user == @place.user
       redirect "/"
     end
+    @place.errors.clear
     unless params[:name] == ""
       @place.update(name: params[:name])
     end
@@ -71,17 +73,14 @@ class PlacesController < ApplicationController
   end
 
   delete "/places/:id/delete" do
-    redirect_if_not_logged_in
+    unless current_user == @place.user
+      redirect "/"
+    end
     redirect "/places"
   end
 
   get "/places/:id" do
     @place = Place.find(params[:id])
     erb :"/places/show"
-  end
-
-  patch "/places/:id" do
-    redirect_if_not_logged_in
-    redirect "/places/:id"
   end
 end

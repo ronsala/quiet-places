@@ -5,7 +5,7 @@
 <% end %>
 
 <h3>Reviews</h3>
-<% @user.reviews.each do | review | %>
+<% @reviews.each do | review | %>
   <p><a href='/reviews/<%= review.id %>'><%= review.title %></a></p>
 <% end %>
 <br>

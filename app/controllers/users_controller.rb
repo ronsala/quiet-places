@@ -58,6 +58,7 @@ class UsersController < ApplicationController
   post "/users/:id" do
     redirect_if_not_logged_in
     @user = User.find(params[:id])
+    @reviews = @user.reviews
     if current_user.id == @user.id
       @user.update(username: params[:username], email: params[:email], password: params[:password])
     end

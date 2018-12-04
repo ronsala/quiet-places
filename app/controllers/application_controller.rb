@@ -21,9 +21,8 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      # binding.pry
       if logged_in?
-      User.find(session[:user_id])
+        User.find(session[:user_id])
       else
         erb :index
       end

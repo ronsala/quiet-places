@@ -72,9 +72,10 @@ class PlacesController < ApplicationController
       end
   end
 
-  delete "/places/:id/delete" do
-    unless current_user == @place.user
-      redirect "/"
+  get "/places/:id/delete" do
+    @place = Place.find(params[:id])
+    if @place && @place.user == current_user
+      @place.delete
     end
     redirect "/places"
   end

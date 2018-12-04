@@ -89,4 +89,13 @@ class UsersController < ApplicationController
     session.clear
     redirect '/'
   end
+
+  get "/users/:id/delete" do
+    @user = User.find(params[:id])
+    if @user && @user == current_user
+      session.clear
+      @user.delete
+    end
+    redirect "/"
+  end
 end

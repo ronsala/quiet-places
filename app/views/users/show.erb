@@ -4,6 +4,11 @@
   <p><%= @user.email %></p>
 <% end %>
 
+<h3>Places</h3>
+<% @places.each do | place | %>
+  <p><a href='/places/<%= place.id %>'><%= place.name %></a></p>
+<% end %>
+
 <h3>Reviews</h3>
 <% @reviews.each do | review | %>
   <p><a href='/reviews/<%= review.id %>'><%= review.title %></a></p>

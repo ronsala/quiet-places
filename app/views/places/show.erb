@@ -2,17 +2,20 @@
 <br>
 <p><%= @place.street %></p>
 <p><%= @place.city %>, <%= @place.state %></p>
-<p><a href="<%= @place.website %>>/edit"><%= @place.website %></a></p>
+<p><%= @place.category %></p>
+<p><a href="<%= @place.website %>/edit"><%= @place.website %></a></p>
+<p>Created by <a href="/users/<%= @place.user.id %>"><%= @place.user.username %></p>
 <br>
 
 <h3>Reviews</h3>
 <% if @place.reviews %>
   <% @place.reviews.each do | review |%>
-    <p><a href="/reviews/<%=review.id%>"><%=review.title%></a></p>
+    <p><a href="/reviews/<%= review.id %>"><%= review.title %></a></p>
   <%end%>
 <%end%>
 <br>
 <p><a href="/reviews/new/<%= @place.id %>">Review <%= @place.name %></a></p>
+<br>
 
 <% if current_user == @place.user %>
   <p><a href="/places/<%= @place.id %>/edit">Edit</a>

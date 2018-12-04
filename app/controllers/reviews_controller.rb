@@ -44,12 +44,31 @@ class ReviewsController < ApplicationController
   get "/reviews/:id/edit" do
     redirect_if_not_logged_in
     @review = Review.find(params[:id])
+    @place = Place.find(@review.place_id)
     erb :"/reviews/edit"
   end
 
-  patch "/reviews/:id" do
-    redirect_if_not_logged_in
-    redirect "/reviews/:id"
+  post "/reviews/:id" do
+    @review = Review.find(params[:id])
+    unless current_user == @review.user
+      redirect "/"
+    end
+    unless params[:title] == ""
+      @review.update(title: params[:title])
+    end
+    unless params[:tv] == "--"
+      @review.update(tv: params[:tv])
+    end
+    unless params[:volume] == "--"
+      @review.update(volume: params[:volume])
+    end
+    unless params[:quality] == "--"
+      @review.update(quality: params[:quality])
+    end
+    unless params[:body] == ""
+      @review.update(body: params[:body])
+    end
+    redirect "/reviews/#{@review.id}"
   end
 
   delete "/reviews/:id/delete" do

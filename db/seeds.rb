@@ -21,9 +21,9 @@ reviews.each do |x|
 end
 
 places = [
-  {name: "Louie's Breakfast", street: "20 Wabash St.", city: "New Jack City", state: "UT", website: "www.louies.com"},
-  {name: "Tavern On the Blue", street: "19 Cookie Monster Way", city: "Hoboken", state: "NJ", website: "www.tonb.com"}, 
-  {name: "Bugs Are Yummy", street: "113 Main Ave", city: "Tampa", state: "FL", website: "www.buggy.com"}
+  {user_id: "1", name: "Louie's Breakfast", street: "20 Wabash St.", city: "New Jack City", state: "UT", website: "www.louies.com"},
+  {user_id: "2", name: "Tavern On the Blue", street: "19 Cookie Monster Way", city: "Hoboken", state: "NJ", website: "www.tonb.com"}, 
+  {user_id: "3", name: "Bugs Are Yummy", street: "113 Main Ave", city: "Tampa", state: "FL", website: "www.buggy.com"}
 ]
 
 places.each do |x|

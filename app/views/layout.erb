@@ -32,7 +32,7 @@
       </nav>
       <br>
       <% if logged_in? %>
-        <strong>Logged in as <a href='/users/<%= current_user.id %>'><%= current_user.username %></strong></a>
+        <p>Logged in as <a href='/users/<%= current_user.id %>'><%= current_user.username %></p></a>
       <% end %>
       <% if logged_in? && current_user.is_admin %>
         <p><em>Admin account</em></p>

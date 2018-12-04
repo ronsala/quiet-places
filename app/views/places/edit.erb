@@ -1,15 +1,19 @@
 <h2><%= @place.name %> </h2>
 <br>
+
+<% if flash[:messages] %>
+  <p><strong><%= flash[:messages] %></strong></p>
+<% end %>
+
 <form action="/places/<%= @place.id %>" method="POST">
 
   <p>Current Name: <%= @place.name %></p>
   <p>New Name: <input type="text" name="name"></p>
-  <br>
     <% if flash[:name] %>
       <p><strong><%= flash[:name] %></strong></p>
     <% end %>
-
-  <p>Street Address: <%= @place.street %></p>
+  <br>
+  <p>Current Street Address: <%= @place.street %></p>
   <p>New Street Address: <input type="text" name="street"></p>
   <br>
   <p>Current City: <%= @place.city %></p>

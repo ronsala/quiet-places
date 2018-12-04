@@ -39,8 +39,11 @@ class PlacesController < ApplicationController
   end
 
   post "/places/:id" do
-    redirect_if_not_logged_in 
     @place = Place.find(params[:id])
+    @place.errors.clear
+    unless current_user == @place.user
+      redirect "/"
+    end
     unless params[:name] == ""
       @place.update(name: params[:name])
     end
@@ -59,7 +62,12 @@ class PlacesController < ApplicationController
     unless params[:website] == ""
       @place.update(website: params[:website])
     end
-    redirect "/places/#{@place.id}"
+      if @place.errors.messages != {}
+        flash[:messages] = "#{@place.errors.full_messages[0]}. Please try again."
+        redirect "/places/#{@place.id}/edit"
+      else
+        redirect "/places/#{@place.id}"
+      end
   end
 
   delete "/places/:id/delete" do

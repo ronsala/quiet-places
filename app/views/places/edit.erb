@@ -1,27 +1,27 @@
 <h2><%= @place.name %> </h2>
 <br>
 <form action="/places/<%= @place.id %>" method="POST">
+
   <p>Current Name: <%= @place.name %></p>
   <p>New Name: <input type="text" name="name"></p>
+  <br>
     <% if flash[:name] %>
       <p><strong><%= flash[:name] %></strong></p>
     <% end %>
+
   <p>Street Address: <%= @place.street %></p>
   <p>New Street Address: <input type="text" name="street"></p>
-    <% if flash[:street] %>
-      <p><strong><%= flash[:street] %></strong></p>
-    <% end %>
-  <p>Current City:: <%= @place.city %></p>
+  <br>
+  <p>Current City: <%= @place.city %></p>
   <p>New City: <input type="city" name="city"></p>
     <% if flash[:city] %>
       <p><strong><%= flash[:city] %></strong></p>
     <% end %>
-  <p>Current State:: <%= @place.state %></p>
-  <p>New State: <input type="state" name="city"></p>
-    <% if flash[:state] %>
-      <p><strong><%= flash[:state] %></strong></p>
-    <% end %>
+  <br>
+  <p>Current State: <%= @place.state %></p>
+  <p>New State: 
     <select name="state">
+    <option value="--">--</option>
     <option value="AL">Alabama</option>
     <option value="AK">Alaska</option>
     <option value="AZ">Arizona</option>
@@ -72,13 +72,18 @@
     <option value="WV">West Virginia</option>
     <option value="WI">Wisconsin</option>
     <option value="WY">Wyoming</option>
-  </select><br><br>
+  </select></p>
+  <br>
   <p>Current Category: <%= @place.category %></p>
-  <p>New Category <input type="category" name="city"></p>
-    <% if flash[:category] %>
-      <p><strong><%= flash[:category] %></strong></p>
-    <% end %>
-  <p>Current Website:: <%= @place.website %></p>
+  <p>New Category: 
+      <input type="radio" id="restaurant" name="category" value="restaurant"
+            checked>
+      <label for="restaurant">Restaurant</label>
+
+      <input type="radio" id="bar" name="category" value="bar">
+      <label for="bar">Bar</label></p>
+  <br>
+  <p>Current Website: <%= @place.website %></p>
   <p>New Website: <input type="city" name="website"></p>
   <br>
   <input class="btn btn-primary" type="submit">

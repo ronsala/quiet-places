@@ -10,15 +10,11 @@
       <p><strong><%= flash[:title] %></strong></p>
     <% end %>
   <p>TV:</p>
-    <div>
-      <input type="radio" id="true" name="tv" value="true" checked>
-      <label for="true">True</label>
-    </div>
-
-    <div>
-      <input type="radio" id="false" name="tv" value="false">
-      <label for="false">False</label>
-    </div><br>
+  <p><select name="tv">
+    <option value="">--</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+    </select><br><br>
 
   <p>Volume:</p>
     <select name="volume">

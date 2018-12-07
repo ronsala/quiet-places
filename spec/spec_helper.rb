@@ -34,3 +34,4 @@ def app
 end
 
 Capybara.app = app
+# cap_session = Capybara::Session.new

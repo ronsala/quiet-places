@@ -16,6 +16,7 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.include Rack::Test::Methods
   config.include Capybara::DSL
+  config.color = true
   DatabaseCleaner.strategy = :truncation
 
   config.before do
@@ -35,3 +36,4 @@ end
 
 Capybara.app = app
 # cap_session = Capybara::Session.new
+# wrong number of arguments (given 0, expected 1..2)

@@ -1,6 +1,6 @@
 require_relative "spec_helper"
 
-describe ApplicationController do
+describe "UsersController" do
   it "signs up" do
     visit('/')
     click_link('Sign Up')

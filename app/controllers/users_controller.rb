@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   get '/signup' do
+    # binding.pry
     if !logged_in?
       erb :"/users/signup"
     else
@@ -9,32 +10,45 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    if params[:password] != params[:password_confirm]
-      flash[:match] = "Passwords must match. Please try again."
-      redirect '/signup'
+    # check if logged in
+    if logged_in?
+      redirect '/places'
     else
-      @user = User.create(username: params[:username], email: params[:email], password: params[:password])
-      if @user.errors.any?
-        if @user.errors.messages[:username]
-          flash[:user] = "Username #{@user.errors.messages[:username][0]}. Please try again."
-        elsif @user.errors.messages[:email]
-          flash[:email] = "Email #{@user.errors.messages[:email][0]}. Please try again."
-        elsif @user.errors.messages[:password]
-          flash[:password] = "Password #{@user.errors.messages[:password][0]}. Please try again."
-        end
+      # handle mismatched password entry
+      if params[:password] != params[:password_confirm]
+        flash[:match] = "Passwords must match. Please try again."
         redirect '/signup'
       else
-        if params[:admin_key] != ""
-          if params[:admin_key] == ENV["ADMIN_KEY"]
-            @user.is_admin = true
-            @user.save
-            session[:user_id] = @user.id
-            redirect '/places'
+        # create user
+        @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+
+        # check for errors
+        if @user.errors.any?
+          #create flash messages from errors hash
+          if @user.errors.messages[:username]
+            flash[:user] = "Username #{@user.errors.messages[:username][0]}. Please try again."
+          elsif @user.errors.messages[:email]
+            flash[:email] = "Email #{@user.errors.messages[:email][0]}. Please try again."
+          else @user.errors.messages[:password]
+            flash[:password] = "Password #{@user.errors.messages[:password][0]}. Please try again."
+          end
+          redirect '/signup'
+        elsif
+          # if correct admin creds, save admin to db and log in
+          if params[:admin_key] != ""
+            if params[:admin_key] == ENV["ADMIN_KEY"]
+              @user.is_admin = true
+              @user.save
+              session[:user_id] = @user.id
+              redirect '/places'
+            end
           else
+            # handle incorrect admin cred
             flash[:admin_mismatch] = "Admin key not recognized. Please try again."
             redirect '/signup'
           end
         else
+          # create regular user
           session[:user_id] = @user.id
           redirect '/places'
         end

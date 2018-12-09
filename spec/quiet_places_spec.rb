@@ -25,68 +25,63 @@ require_relative 'spec_helper'
       expect(page).to have_content("Have an admin key?")
     end
 
-    it "signs up a user" do
-      visit('/')
-      click_link('Sign Up')
-      fill_in('username', :with => 'Capy')
-      fill_in('email', :with => 'capy@example.com')
-      fill_in('password', :with => '123')
-      fill_in('password_confirm', :with => '123')
-      click_button('submit')
-      expect(page).to have_content('Logged in as Capy')
-    end  
+    it 'signup directs user to places index' do
+      params = {
+        :username => "skittles123",
+        :email => "skittles@aol.com",
+        :password => "rainbows",
+        :password_confirm => "rainbows"
+      }
+      post '/signup', params
+      # expect(page).to have_content("<h2>Places</h2>")
+      expect(last_response.location).to include("/places")
+    end
 
-    # it 'signup directs user to twitter index' do
-    #   params = {
-    #     :username => "skittles123",
-    #     :email => "skittles@aol.com",
-    #     :password => "rainbows"
-    #   }
-    #   post '/signup', params
-    #   expect(last_response.location).to include("/tweets")
-    # end
+    it 'does not let a user sign up without a username' do
+      params = {
+        :username => "",
+        :email => "skittles@aol.com",
+        :password => "rainbows",
+        :password_confirm => "rainbows"
+      }
+      post '/signup', params
+      expect(last_response.location).to include('/signup')
+    end
 
-    # it 'does not let a user sign up without a username' do
-    #   params = {
-    #     :username => "",
-    #     :email => "skittles@aol.com",
-    #     :password => "rainbows"
-    #   }
-    #   post '/signup', params
-    #   expect(last_response.location).to include('/signup')
-    # end
+    it 'does not let a user sign up without an email' do
+      params = {
+        :username => "skittles123",
+        :email => "",
+        :password => "rainbows"
+      }
+      post '/signup', params
+      expect(last_response.location).to include('/signup')
+    end
 
-    # it 'does not let a user sign up without an email' do
-    #   params = {
-    #     :username => "skittles123",
-    #     :email => "",
-    #     :password => "rainbows"
-    #   }
-    #   post '/signup', params
-    #   expect(last_response.location).to include('/signup')
-    # end
+    it 'does not let a user sign up without a password' do
+      params = {
+        :username => "skittles123",
+        :email => "skittles@aol.com",
+        :password => ""
+      }
+      post '/signup', params
+      expect(last_response.location).to include('/signup')
+    end
 
-    # it 'does not let a user sign up without a password' do
-    #   params = {
-    #     :username => "skittles123",
-    #     :email => "skittles@aol.com",
-    #     :password => ""
-    #   }
-    #   post '/signup', params
-    #   expect(last_response.location).to include('/signup')
-    # end
-
-    # it 'does not let a logged in user view the signup page' do
-    #   user = User.create(:username => "skittles123", :email => "skittles@aol.com", :password => "rainbows")
-    #   params = {
-    #     :username => "skittles123",
-    #     :email => "skittles@aol.com",
-    #     :password => "rainbows"
-    #   }
-    #   post '/signup', params
-    #   get '/signup'
-    #   expect(last_response.location).to include('/tweets')
-    # end
+    it 'does not let a logged in user view the signup page' do
+      user = User.create(:username => "skittles123", :email => "skittles@aol.com", :password => "rainbows")
+      params = {
+        :username => "skittles123",
+        :email => "skittles@aol.com",
+        :password => "rainbows",
+        :password_confirm => "rainbows"
+      }
+      post '/signup', params
+      get '/signup'
+      # follow_redirect! => Last response was not a redirect. Cannot follow_redirect!
+      expect(last_response.body).to include("<h2>Places</h2>")
+      expect(last_response.location).to include('/places')
+    end
   end
 
   describe "login" do
@@ -95,7 +90,7 @@ require_relative 'spec_helper'
       expect(last_response.status).to eq(200)
     end
 
-    it 'loads the tweets index after login' do
+    it 'loads the places index after login' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
       params = {
         :username => "becky567",
@@ -105,7 +100,7 @@ require_relative 'spec_helper'
       expect(last_response.status).to eq(302)
       follow_redirect!
       expect(last_response.status).to eq(200)
-      expect(last_response.body).to include("Welcome,")
+      expect(last_response.body).to include("<h2>Places</h2>")
     end
 
     it 'does not let user view login page if already logged in' do
@@ -117,7 +112,7 @@ require_relative 'spec_helper'
       }
       post '/login', params
       get '/login'
-      expect(last_response.location).to include("/tweets")
+      expect(last_response.location).to include("/places")
     end
   end
 
@@ -139,12 +134,12 @@ require_relative 'spec_helper'
       expect(last_response.location).to include("/")
     end
 
-    it 'does not load /tweets if user not logged in' do
-      get '/tweets'
+    it 'does not load /places if user not logged in' do
+      get '/places'
       expect(last_response.location).to include("/login")
     end
 
-    it 'does load /tweets if user is logged in' do
+    it 'does load /places if user is logged in' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
 
@@ -153,12 +148,12 @@ require_relative 'spec_helper'
       fill_in(:username, :with => "becky567")
       fill_in(:password, :with => "kittens")
       click_button 'submit'
-      expect(page.current_path).to eq('/tweets')
+      expect(page.current_path).to eq('/places')
     end
   end
 
   describe 'user show page' do
-    it 'shows all a single users tweets' do
+    it 'shows all a single users places' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
       tweet1 = Tweet.create(:content => "tweeting!", :user_id => user.id)
       tweet2 = Tweet.create(:content => "tweet tweet tweet", :user_id => user.id)
@@ -172,7 +167,7 @@ require_relative 'spec_helper'
 
   describe 'index action' do
     context 'logged in' do
-      it 'lets a user view the tweets index if logged in' do
+      it 'lets a user view the places index if logged in' do
         user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
         tweet1 = Tweet.create(:content => "tweeting!", :user_id => user1.id)
 
@@ -184,15 +179,15 @@ require_relative 'spec_helper'
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit "/tweets"
+        visit "/places"
         expect(page.body).to include(tweet1.content)
         expect(page.body).to include(tweet2.content)
       end
     end
 
     context 'logged out' do
-      it 'does not let a user view the tweets index if not logged in' do
-        get '/tweets'
+      it 'does not let a user view the places index if not logged in' do
+        get '/places'
         expect(last_response.location).to include("/login")
       end
     end
@@ -208,7 +203,7 @@ require_relative 'spec_helper'
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit '/tweets/new'
+        visit '/places/new'
         expect(page.status_code).to eq(200)
       end
 
@@ -221,7 +216,7 @@ require_relative 'spec_helper'
         fill_in(:password, :with => "kittens")
         click_button 'submit'
 
-        visit '/tweets/new'
+        visit '/places/new'
         fill_in(:content, :with => "tweet!!!")
         click_button 'submit'
 
@@ -242,7 +237,7 @@ require_relative 'spec_helper'
         fill_in(:password, :with => "kittens")
         click_button 'submit'
 
-        visit '/tweets/new'
+        visit '/places/new'
 
         fill_in(:content, :with => "tweet!!!")
         click_button 'submit'
@@ -264,19 +259,19 @@ require_relative 'spec_helper'
         fill_in(:password, :with => "kittens")
         click_button 'submit'
 
-        visit '/tweets/new'
+        visit '/places/new'
 
         fill_in(:content, :with => "")
         click_button 'submit'
 
         expect(Tweet.find_by(:content => "")).to eq(nil)
-        expect(page.current_path).to eq("/tweets/new")
+        expect(page.current_path).to eq("/places/new")
       end
     end
 
     context 'logged out' do
       it 'does not let user view new tweet form if not logged in' do
-        get '/tweets/new'
+        get '/places/new'
         expect(last_response.location).to include("/login")
       end
     end
@@ -295,7 +290,7 @@ require_relative 'spec_helper'
         fill_in(:password, :with => "kittens")
         click_button 'submit'
 
-        visit "/tweets/#{tweet.id}"
+        visit "/places/#{tweet.id}"
         expect(page.status_code).to eq(200)
         expect(page.body).to include("Delete Tweet")
         expect(page.body).to include(tweet.content)
@@ -307,7 +302,7 @@ require_relative 'spec_helper'
       it 'does not let a user view a tweet' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
         tweet = Tweet.create(:content => "i am a boss at tweeting", :user_id => user.id)
-        get "/tweets/#{tweet.id}"
+        get "/places/#{tweet.id}"
         expect(last_response.location).to include("/login")
       end
     end
@@ -323,7 +318,7 @@ require_relative 'spec_helper'
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit '/tweets/1/edit'
+        visit '/places/1/edit'
         expect(page.status_code).to eq(200)
         expect(page.body).to include(tweet.content)
       end
@@ -340,8 +335,8 @@ require_relative 'spec_helper'
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit "/tweets/#{tweet2.id}/edit"
-        expect(page.current_path).to include('/tweets')
+        visit "/places/#{tweet2.id}/edit"
+        expect(page.current_path).to include('/places')
       end
 
       it 'lets a user edit their own tweet if they are logged in' do
@@ -352,7 +347,7 @@ require_relative 'spec_helper'
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit '/tweets/1/edit'
+        visit '/places/1/edit'
 
         fill_in(:content, :with => "i love tweeting")
 
@@ -370,19 +365,19 @@ require_relative 'spec_helper'
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit '/tweets/1/edit'
+        visit '/places/1/edit'
 
         fill_in(:content, :with => "")
 
         click_button 'submit'
         expect(Tweet.find_by(:content => "i love tweeting")).to be(nil)
-        expect(page.current_path).to eq("/tweets/1/edit")
+        expect(page.current_path).to eq("/places/1/edit")
       end
     end
 
     context "logged out" do
       it 'does not load -- requests user to login' do
-        get '/tweets/1/edit'
+        get '/places/1/edit'
         expect(last_response.location).to include("/login")
       end
     end
@@ -398,7 +393,7 @@ require_relative 'spec_helper'
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit 'tweets/1'
+        visit 'places/1'
         click_button "Delete Tweet"
         expect(page.status_code).to eq(200)
         expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)
@@ -416,18 +411,18 @@ require_relative 'spec_helper'
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit "tweets/#{tweet2.id}"
+        visit "places/#{tweet2.id}"
         click_button "Delete Tweet"
         expect(page.status_code).to eq(200)
         expect(Tweet.find_by(:content => "look at this tweet")).to be_instance_of(Tweet)
-        expect(page.current_path).to include('/tweets')
+        expect(page.current_path).to include('/places')
       end
     end
 
     context "logged out" do
       it 'does not load let user delete a tweet if not logged in' do
         tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
-        visit '/tweets/1'
+        visit '/places/1'
         expect(page.current_path).to eq("/login")
       end
     end

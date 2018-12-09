@@ -12,10 +12,5 @@ describe "UsersController" do
     expect(page).to have_content('Logged in as Capy')
   end
 
-  # it "creates places" do
-  #   visit('/places')
-  #   click_link('Create Place')
-  #   fill_in('Password', :with => 'Seekrit')
-    # [] finish
-  # end
+
 end

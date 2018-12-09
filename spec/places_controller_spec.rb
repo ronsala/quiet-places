@@ -11,3 +11,10 @@ require_relative "spec_helper"
 #     expect(last_response.body).to include("Louie's Breakfast")
 #   end
 # end
+
+  # it "creates places" do
+  #   visit('/places')
+  #   click_link('Create Place')
+  #   fill_in('Password', :with => 'Seekrit')
+    # [] finish
+  # end

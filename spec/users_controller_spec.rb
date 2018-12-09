@@ -1,7 +1,9 @@
 require_relative "spec_helper"
 
 describe "UsersController" do
+
   context "signup" do
+
     it "signs up a user" do
       visit('/')
       click_link('Sign Up')
@@ -69,6 +71,36 @@ describe "UsersController" do
       fill_in('admin_key', :with => "90210")
       click_button('submit')
       expect(page).to have_content('Admin key not recognized. Please try again.')
+    end
+  end
+
+  context "login" do
+    before do
+      User.create(:username => 'Happy', :email => 'happy@example.com', :password => 'password')
+    end
+
+    it "logs a user in" do
+      visit('/login')
+      fill_in('username', :with => 'Happy')
+      fill_in('password', :with => 'password')
+      click_button('submit')
+      expect(page).to have_content('Logged in as Happy')
+    end
+
+    it "redirects to signup when unsuccessful" do
+      visit('/login')
+      fill_in('username', :with => 'Sadie')
+      fill_in('password', :with => 'password')
+      click_button('submit')
+      expect(page).to have_current_path('/signup')
+    end
+  end
+
+  context "logout" do
+
+    it "logs user out and redirects to homepage" do
+      visit('/logout')
+      expect(page).to have_current_path('/')
     end
   end
 end

@@ -18,7 +18,7 @@
 
   /* --- Welcome Page Styles --- */
   body {
-    background-color: green;
+    background-color: palegreen;
     color: #333;
     font-family: Sans-Serif;
     line-height: 18px;
@@ -38,11 +38,11 @@
   h1 {
     font-size: 36px;
     line-height: 54px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
   }
 
   h2 {
-    border-bottom: 2px solid green;
-    font-size: 48px;
+    font-size: 24px;
     line-height: 36px;
     margin-bottom: 16px;
     color: goldenrod;
@@ -55,7 +55,7 @@
 
   p {
     margin-bottom: 5px;
-    color: red;
+    color: brown;
   }
 
   .main {

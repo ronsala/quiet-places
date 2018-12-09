@@ -37,3 +37,5 @@ end
 Capybara.app = app
 # cap_session = Capybara::Session.new
 # wrong number of arguments (given 0, expected 1..2)
+
+Capybara.javascript_driver = :selenium

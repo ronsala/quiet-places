@@ -10,50 +10,66 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    # check if logged in
+    # binding.pry
+    # pry(#<UsersController>)> params
+    # => {"username"=>"skittles123", "email"=>"skittles@aol.com", "password"=>"rainbows", "password_confirm"=>"rainbows"}
+    # logged in?
     if logged_in?
+      binding.pry # no hit
       redirect '/places'
+    # not logged in
     else
-      # handle mismatched password entry
+      # binding.pry
+      #       pry(#<UsersController>)> params
+      # => {"username"=>"skittles123", "email"=>"skittles@aol.com", "password"=>"rainbows", "password_confirm"=>"rainbows"}
+      # mismatched password entry?
       if params[:password] != params[:password_confirm]
         flash[:match] = "Passwords must match. Please try again."
+        # binding.pry
+        # pry(#<UsersController>)> params
+        # => {"username"=>"skittles123", "email"=>"", "password"=>"rainbows"}
         redirect '/signup'
+      # no mismatched password entry
       else
         # create user
         @user = User.create(username: params[:username], email: params[:email], password: params[:password])
 
-        # check for errors
+        # user errors?
         if @user.errors.any?
-          #create flash messages from errors hash
+          # data in errors hash?
           if @user.errors.messages[:username]
             flash[:user] = "Username #{@user.errors.messages[:username][0]}. Please try again."
           elsif @user.errors.messages[:email]
             flash[:email] = "Email #{@user.errors.messages[:email][0]}. Please try again."
-          else @user.errors.messages[:password]
+          elsif @user.errors.messages[:password]
             flash[:password] = "Password #{@user.errors.messages[:password][0]}. Please try again."
-          end
+          end # data in errors hash?
           redirect '/signup'
-        elsif
-          # if correct admin creds, save admin to db and log in
+        # no user errors
+        else
+          # something in admin key field?
           if params[:admin_key] != ""
+            # correct admin creds?
             if params[:admin_key] == ENV["ADMIN_KEY"]
               @user.is_admin = true
               @user.save
               session[:user_id] = @user.id
               redirect '/places'
-            end
+            else
+              # handle incorrect admin cred
+              flash[:admin_mismatch] = "Admin key not recognized. Please try again."
+              redirect '/signup'
+            end # correct admin creds?
+          # nothing in admin field
           else
-            # handle incorrect admin cred
-            flash[:admin_mismatch] = "Admin key not recognized. Please try again."
-            redirect '/signup'
-          end
-        else
-          # create regular user
-          session[:user_id] = @user.id
-          redirect '/places'
-        end
-      end
-    end
+            # log in regular user
+            session[:user_id] = @user.id
+            binding.pry # no hit
+            redirect '/places'
+          end # something in admin key field?
+        end # user errors?
+      end # mismatched password entry?
+    end # logged in?
   end
 
   get "/users/:id" do
@@ -117,9 +133,22 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
+    # binding.pry #  params
+    # => {"username"=>"becky567", "password"=>"kittens"}
     @user = User.find_by(:username => params[:username])
+    # binding.pry # @user
+    # => #<User:0x007fa73b0f70c8
+    # id: 1,
+    # username: "becky567",
+    # email: "starz@aol.com",
+    # password_digest: "$2a$10$Cz81qDv.MMAt7I6ROdVhH.IjCD8yYnYaxX0Bkcr6qAsmLkGO1KKT.",
+    # is_admin: false,
+    # created_at: 2018-12-09 14:04:41 UTC,
+    # updated_at: 2018-12-09 14:04:41 UTC>
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
+      # binding.pry # session
+      # => {"session_id"=>"280c71f8d89b9b2a194379a87253a476b8995f9a061fb6e4a38ed70b6ab9ab25", "csrf"=>"aKY4WGm6aKflx0SJJbAXNngItiPlXrjM0GE2BgD8thM=", "tracking"=>{"HTTP_USER_AGENT"=>"da39a3ee5e6b4b0d3255bfef95601890afd80709", "HTTP_ACCEPT_LANGUAGE"=>"da39a3ee5e6b4b0d3255bfef95601890afd80709"}, "user_id"=>1}
       flash[:successful_login] = "Signed in as #{current_user.username}"
       redirect '/places'
     else

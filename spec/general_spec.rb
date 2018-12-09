@@ -6,13 +6,8 @@ describe ApplicationController do
   it "signs up" do
     visit('/')
     click_link('Sign Up')
-    save_and_open_page
-    # save_sceenshot('screenshot.png')
-    # undefined method `save_sceenshot' for #<RSpec::ExampleGroups::ApplicationController_2:0x007fde72551330>
-    # Did you mean?  save_screenshot
-    # save_sceenshot
-    # undefined local variable or method `save_sceenshot' for #<RSpec::ExampleGroups::ApplicationController_2:0x007fe48ceb1540>
-    # Did you mean?  save_screenshot
+    # save_and_open_page
+    save_screenshot('screenshot.png')
     # pry(#<RSpec::ExampleGroups::ApplicationController_2>)> current_path
     # => "/signup"
     fill_in('Username * ', :with => 'Capy')

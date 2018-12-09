@@ -98,7 +98,7 @@ describe "UsersController" do
 
   context "logout" do
 
-    it "logs user out and redirects to homepage" do
+    it "redirects to homepage" do
       visit('/logout')
       expect(page).to have_current_path('/')
     end

@@ -121,7 +121,7 @@ require_relative 'spec_helper'
   end
 
   # describe "logout" do
-  describe "logout", :js => true do
+  describe "logout" do
     it "lets a user logout if they are already logged in" do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
@@ -130,10 +130,10 @@ require_relative 'spec_helper'
         :password => "kittens"
       }
       post '/login', params
-      save_and_open_page
+      # save_and_open_page
       get '/logout'
       # follow_redirect!
-      save_and_open_page
+      # save_and_open_page
       expect(page).to have_content("Welcome")
       expect(last_response.location).to include("/")
     end
@@ -165,8 +165,8 @@ require_relative 'spec_helper'
   describe 'user show page' do
     it 'shows all a single users places' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-      tweet1 = Tweet.create(:content => "tweeting!", :user_id => user.id)
-      tweet2 = Tweet.create(:content => "tweet tweet tweet", :user_id => user.id)
+      tweet1 = Review.create(:content => "tweeting!", :user_id => user.id)
+      tweet2 = Review.create(:content => "tweet tweet tweet", :user_id => user.id)
       get "/users/#{user.slug}"
 
       expect(last_response.body).to include("tweeting!")
@@ -179,10 +179,10 @@ require_relative 'spec_helper'
     context 'logged in' do
       it 'lets a user view the places index if logged in' do
         user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet1 = Tweet.create(:content => "tweeting!", :user_id => user1.id)
+        tweet1 = Review.create(:content => "tweeting!", :user_id => user1.id)
 
         user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
-        tweet2 = Tweet.create(:content => "look at this tweet", :user_id => user2.id)
+        tweet2 = Review.create(:content => "look at this tweet", :user_id => user2.id)
 
         visit '/login'
 
@@ -231,8 +231,8 @@ require_relative 'spec_helper'
         click_button 'submit'
 
         user = User.find_by(:username => "becky567")
-        tweet = Tweet.find_by(:content => "tweet!!!")
-        expect(tweet).to be_instance_of(Tweet)
+        tweet = Review.find_by(:content => "tweet!!!")
+        expect(tweet).to be_instance_of(Review)
         expect(tweet.user_id).to eq(user.id)
         expect(page.status_code).to eq(200)
       end
@@ -254,8 +254,8 @@ require_relative 'spec_helper'
 
         user = User.find_by(:id=> user.id)
         user2 = User.find_by(:id => user2.id)
-        tweet = Tweet.find_by(:content => "tweet!!!")
-        expect(tweet).to be_instance_of(Tweet)
+        tweet = Review.find_by(:content => "tweet!!!")
+        expect(tweet).to be_instance_of(Review)
         expect(tweet.user_id).to eq(user.id)
         expect(tweet.user_id).not_to eq(user2.id)
       end
@@ -274,7 +274,7 @@ require_relative 'spec_helper'
         fill_in(:content, :with => "")
         click_button 'submit'
 
-        expect(Tweet.find_by(:content => "")).to eq(nil)
+        expect(Review.find_by(:content => "")).to eq(nil)
         expect(page.current_path).to eq("/places/new")
       end
     end
@@ -292,7 +292,7 @@ require_relative 'spec_helper'
       it 'displays a single tweet' do
 
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "i am a boss at tweeting", :user_id => user.id)
+        tweet = Review.create(:content => "i am a boss at tweeting", :user_id => user.id)
 
         visit '/login'
 
@@ -302,16 +302,16 @@ require_relative 'spec_helper'
 
         visit "/places/#{tweet.id}"
         expect(page.status_code).to eq(200)
-        expect(page.body).to include("Delete Tweet")
+        expect(page.body).to include("Delete Review")
         expect(page.body).to include(tweet.content)
-        expect(page.body).to include("Edit Tweet")
+        expect(page.body).to include("Edit Review")
       end
     end
 
     context 'logged out' do
       it 'does not let a user view a tweet' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "i am a boss at tweeting", :user_id => user.id)
+        tweet = Review.create(:content => "i am a boss at tweeting", :user_id => user.id)
         get "/places/#{tweet.id}"
         expect(last_response.location).to include("/login")
       end
@@ -322,7 +322,7 @@ require_relative 'spec_helper'
     context "logged in" do
       it 'lets a user view tweet edit form if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "tweeting!", :user_id => user.id)
+        tweet = Review.create(:content => "tweeting!", :user_id => user.id)
         visit '/login'
 
         fill_in(:username, :with => "becky567")
@@ -335,10 +335,10 @@ require_relative 'spec_helper'
 
       it 'does not let a user edit a tweet they did not create' do
         user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet1 = Tweet.create(:content => "tweeting!", :user_id => user1.id)
+        tweet1 = Review.create(:content => "tweeting!", :user_id => user1.id)
 
         user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
-        tweet2 = Tweet.create(:content => "look at this tweet", :user_id => user2.id)
+        tweet2 = Review.create(:content => "look at this tweet", :user_id => user2.id)
 
         visit '/login'
 
@@ -351,7 +351,7 @@ require_relative 'spec_helper'
 
       it 'lets a user edit their own tweet if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+        tweet = Review.create(:content => "tweeting!", :user_id => 1)
         visit '/login'
 
         fill_in(:username, :with => "becky567")
@@ -362,14 +362,14 @@ require_relative 'spec_helper'
         fill_in(:content, :with => "i love tweeting")
 
         click_button 'submit'
-        expect(Tweet.find_by(:content => "i love tweeting")).to be_instance_of(Tweet)
-        expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)
+        expect(Review.find_by(:content => "i love tweeting")).to be_instance_of(Review)
+        expect(Review.find_by(:content => "tweeting!")).to eq(nil)
         expect(page.status_code).to eq(200)
       end
 
       it 'does not let a user edit a text with blank content' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+        tweet = Review.create(:content => "tweeting!", :user_id => 1)
         visit '/login'
 
         fill_in(:username, :with => "becky567")
@@ -380,7 +380,7 @@ require_relative 'spec_helper'
         fill_in(:content, :with => "")
 
         click_button 'submit'
-        expect(Tweet.find_by(:content => "i love tweeting")).to be(nil)
+        expect(Review.find_by(:content => "i love tweeting")).to be(nil)
         expect(page.current_path).to eq("/places/1/edit")
       end
     end
@@ -397,24 +397,24 @@ require_relative 'spec_helper'
     context "logged in" do
       it 'lets a user delete their own tweet if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+        tweet = Review.create(:content => "tweeting!", :user_id => 1)
         visit '/login'
 
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
         visit 'places/1'
-        click_button "Delete Tweet"
+        click_button "Delete Review"
         expect(page.status_code).to eq(200)
-        expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)
+        expect(Review.find_by(:content => "tweeting!")).to eq(nil)
       end
 
       it 'does not let a user delete a tweet they did not create' do
         user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet1 = Tweet.create(:content => "tweeting!", :user_id => user1.id)
+        tweet1 = Review.create(:content => "tweeting!", :user_id => user1.id)
 
         user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
-        tweet2 = Tweet.create(:content => "look at this tweet", :user_id => user2.id)
+        tweet2 = Review.create(:content => "look at this tweet", :user_id => user2.id)
 
         visit '/login'
 
@@ -422,16 +422,16 @@ require_relative 'spec_helper'
         fill_in(:password, :with => "kittens")
         click_button 'submit'
         visit "places/#{tweet2.id}"
-        click_button "Delete Tweet"
+        click_button "Delete Review"
         expect(page.status_code).to eq(200)
-        expect(Tweet.find_by(:content => "look at this tweet")).to be_instance_of(Tweet)
+        expect(Review.find_by(:content => "look at this tweet")).to be_instance_of(Review)
         expect(page.current_path).to include('/places')
       end
     end
 
     context "logged out" do
       it 'does not load let user delete a tweet if not logged in' do
-        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+        tweet = Review.create(:content => "tweeting!", :user_id => 1)
         visit '/places/1'
         expect(page.current_path).to eq("/login")
       end

@@ -64,7 +64,6 @@ class UsersController < ApplicationController
           else
             # log in regular user
             session[:user_id] = @user.id
-            binding.pry # no hit
             redirect '/places'
           end # something in admin key field?
         end # user errors?

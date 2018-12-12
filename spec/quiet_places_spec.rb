@@ -130,10 +130,11 @@ require_relative 'spec_helper'
         :password => "kittens"
       }
       post '/login', params
-      # save_and_open_page
       get '/logout'
-      # follow_redirect!
-      # save_and_open_page
+      # visit '/logout'
+      follow_redirect!
+      page.save_and_open_page
+      # blank page
       expect(page).to have_content("Welcome")
       expect(last_response.location).to include("/")
     end

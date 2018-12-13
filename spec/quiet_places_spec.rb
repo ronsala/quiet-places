@@ -135,18 +135,13 @@ require_relative 'spec_helper'
       follow_redirect!
       page.save_and_open_page
       # blank page
+      expect(page.current_path).to eq('/')
       expect(page).to have_content("Welcome")
       expect(last_response.location).to include("/")
     end
 
     it 'does not let a user logout if not logged in' do
       get '/logout'
-      expect(last_response.location).to include("/")
-    end
-
-    it 'does not load /places if user not logged in' do
-      get '/places'
-      expect(last_response.location).to include("/login")
       expect(last_response.location).to include("/")
     end
 

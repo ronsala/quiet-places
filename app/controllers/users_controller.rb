@@ -148,7 +148,6 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       # binding.pry # session
       # => {"session_id"=>"280c71f8d89b9b2a194379a87253a476b8995f9a061fb6e4a38ed70b6ab9ab25", "csrf"=>"aKY4WGm6aKflx0SJJbAXNngItiPlXrjM0GE2BgD8thM=", "tracking"=>{"HTTP_USER_AGENT"=>"da39a3ee5e6b4b0d3255bfef95601890afd80709", "HTTP_ACCEPT_LANGUAGE"=>"da39a3ee5e6b4b0d3255bfef95601890afd80709"}, "user_id"=>1}
-      flash[:successful_login] = "Signed in as #{current_user.username}"
       redirect '/places'
     else
       redirect '/signup'

@@ -2,13 +2,6 @@
 
 require_relative 'spec_helper'
 
-# def app
-#   ApplicationController
-# end
-
-# describe "Quiet Places" do
-# describe ApplicationController do
-
   describe "Homepage" do
     it 'loads the homepage' do
       get '/'
@@ -33,7 +26,6 @@ require_relative 'spec_helper'
         :password_confirm => "rainbows"
       }
       post '/signup', params
-      # expect(page).to have_content("<h2>Places</h2>")
       expect(last_response.location).to include("/places")
     end
 
@@ -120,7 +112,6 @@ require_relative 'spec_helper'
     end
   end
 
-  # describe "logout" do
   describe "logout" do
     it "lets a user logout if they are already logged in" do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
@@ -130,11 +121,8 @@ require_relative 'spec_helper'
         :password => "kittens"
       }
       post '/login', params
-      get '/logout'
-      # visit '/logout'
+      visit '/logout'
       follow_redirect!
-      page.save_and_open_page
-      # blank page
       expect(page.current_path).to eq('/')
       expect(page).to have_content("Welcome")
       expect(last_response.location).to include("/")

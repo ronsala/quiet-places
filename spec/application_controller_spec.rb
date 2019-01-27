@@ -1,9 +1,5 @@
 require_relative "spec_helper"
 
-def app
-  ApplicationController
-end
-
 describe ApplicationController do
   it "responds with a welcome message" do
     get '/'
@@ -12,7 +8,7 @@ describe ApplicationController do
   end
 end
 
-[] ##########
+# [] 
   
   # describe "logout" do
   describe "logout" do

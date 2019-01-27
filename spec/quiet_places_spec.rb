@@ -69,7 +69,6 @@ require_relative 'spec_helper'
     #     :password => "rainbows",
     #     :password_confirm => "rainbows"
     #   }
-    #   # binding.pry
     #   # pry(#<RSpec::ExampleGroups::SignupPage>)> params
     #   # => {:username=>"skittles123", :email=>"skittles@aol.com", :password=>"rainbows", :password_confirm=>"rainbows"}
     #   post '/signup', params
@@ -115,7 +114,6 @@ require_relative 'spec_helper'
   describe "logout" do
     it "lets a user logout if they are already logged in" do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-
       params = {
         :username => "becky567",
         :password => "kittens"

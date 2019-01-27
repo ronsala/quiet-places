@@ -12,40 +12,50 @@ class UsersController < ApplicationController
   post '/signup' do
     if logged_in?
       redirect '/places'
+    # not logged in
     else
       if params[:password] != params[:password_confirm]
         flash[:match] = "Passwords must match. Please try again."
         redirect '/signup'
       else
+        # create user
         @user = User.create(username: params[:username], email: params[:email], password: params[:password])
 
+        # user errors?
         if @user.errors.any?
+          # data in errors hash?
           if @user.errors.messages[:username]
             flash[:user] = "Username #{@user.errors.messages[:username][0]}. Please try again."
           elsif @user.errors.messages[:email]
             flash[:email] = "Email #{@user.errors.messages[:email][0]}. Please try again."
           elsif @user.errors.messages[:password]
             flash[:password] = "Password #{@user.errors.messages[:password][0]}. Please try again."
-          end 
+          end # data in errors hash?
           redirect '/signup'
+        # no user errors
         else
+          # something in admin key field?
           if params[:admin_key] != ""
+            # correct admin creds?
             if params[:admin_key] == ENV["ADMIN_KEY"]
               @user.is_admin = true
               @user.save
               session[:user_id] = @user.id
               redirect '/places'
             else
+              # handle incorrect admin cred
               flash[:admin_mismatch] = "Admin key not recognized. Please try again."
               redirect '/signup'
-            end
+            end # correct admin creds?
+          # nothing in admin field
           else
+            # log in regular user
             session[:user_id] = @user.id
             redirect '/places'
-          end 
-        end 
-      end 
-    end 
+          end # something in admin key field?
+        end # user errors?
+      end # mismatched password entry?
+    end # logged in?
   end
 
   get "/users/:id" do

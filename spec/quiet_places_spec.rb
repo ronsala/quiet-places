@@ -26,6 +26,7 @@ require_relative 'spec_helper'
         :password_confirm => "rainbows"
       }
       post '/signup', params
+      
       expect(last_response.location).to include("/places")
     end
 

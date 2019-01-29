@@ -14,12 +14,8 @@ class UsersController < ApplicationController
       redirect '/places'
     # not logged in
     else
-      if params[:password] != params[:password_confirm]
-        flash[:match] = "Passwords must match. Please try again."
-        redirect '/signup'
-      else
-        # create user
-        @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+      confirm_password
+
 
         # user errors?
         if @user.errors.any?
@@ -35,23 +31,11 @@ class UsersController < ApplicationController
         # no user errors
         else
           # something in admin key field?
-          if params[:admin_key] != ""
-            # correct admin creds?
-            if params[:admin_key] == ENV["ADMIN_KEY"]
-              @user.is_admin = true
-              @user.save
-              session[:user_id] = @user.id
-              redirect '/places'
-            else
-              # handle incorrect admin cred
-              flash[:admin_mismatch] = "Admin key not recognized. Please try again."
-              redirect '/signup'
-            end # correct admin creds?
+
           # nothing in admin field
           else
             # log in regular user
             session[:user_id] = @user.id
-            binding.pry
             redirect '/places'
           end # something in admin key field?
         end # user errors?

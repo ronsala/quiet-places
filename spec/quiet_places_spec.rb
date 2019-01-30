@@ -63,24 +63,6 @@ require_relative 'spec_helper'
       post '/signup', params
       expect(last_response.location).to include('/signup')
     end
-
-    # [] fix
-    # it 'does not let a logged in user view the signup page' do
-    #   user = User.create(:username => "skittles123", :email => "skittles@aol.com", :password => "rainbows")
-    #   params = {
-    #     :username => "skittles123",
-    #     :email => "skittles@aol.com",
-    #     :password => "rainbows",
-    #     :password_confirm => "rainbows"
-    #   }
-    #   # pry(#<RSpec::ExampleGroups::SignupPage>)> params
-    #   # => {:username=>"skittles123", :email=>"skittles@aol.com", :password=>"rainbows", :password_confirm=>"rainbows"}
-    #   post '/signup', params
-    #   get '/signup'
-    #   # follow_redirect! => Last response was not a redirect. Cannot follow_redirect!
-    #   expect(last_response.body).to include("<h2>Places</h2>")
-    #   expect(last_response.location).to include('/places')
-    # end
   end
 
   describe "login" do

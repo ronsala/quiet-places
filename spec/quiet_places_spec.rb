@@ -12,7 +12,7 @@ require_relative 'spec_helper'
 
   describe "Signup Page" do
 
-    before(:all) do
+    before(:each) do
       get '/logout'
     end
 
@@ -34,14 +34,14 @@ require_relative 'spec_helper'
     end
 
     it 'does not let a user sign up without a username' do
-      params = {
-        :username => "",
-        :email => "skittles@aol.com",
-        :password => "rainbows",
-        :password_confirm => "rainbows"
-      }
-      post '/signup', params
-      expect(last_response.location).to include('/signup')
+      visit('/signup')
+      fill_in('username', :with => '')
+      fill_in('email', :with => 'skittles@aol.com')
+      fill_in('password', :with => 'rainbows')
+      fill_in('password_confirm', :with => 'rainbows')
+      click_button('submit')
+      follow_redirect!
+      expect(page.current_path).to eq('/signup')
     end
 
     it 'does not let a user sign up without an email' do

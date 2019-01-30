@@ -34,7 +34,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def check_errors
-      if @user.errors.any?
+      if @user.invalid?
         if @user.errors.messages[:username]
           flash[:user] = "Username #{@user.errors.messages[:username][0]}. Please try again."
           redirect '/signup'

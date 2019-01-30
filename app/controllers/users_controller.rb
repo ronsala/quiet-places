@@ -8,39 +8,13 @@ class UsersController < ApplicationController
     end
   end
 
-  # [] Refactor this:
   post '/signup' do
     if logged_in?
       redirect '/places'
-    # not logged in
     else
-      confirm_password
-
-
-        # user errors?
-        if @user.errors.any?
-          # data in errors hash?
-          if @user.errors.messages[:username]
-            flash[:user] = "Username #{@user.errors.messages[:username][0]}. Please try again."
-          elsif @user.errors.messages[:email]
-            flash[:email] = "Email #{@user.errors.messages[:email][0]}. Please try again."
-          elsif @user.errors.messages[:password]
-            flash[:password] = "Password #{@user.errors.messages[:password][0]}. Please try again."
-          end # data in errors hash?
-          redirect '/signup'
-        # no user errors
-        else
-          # something in admin key field?
-
-          # nothing in admin field
-          else
-            # log in regular user
-            session[:user_id] = @user.id
-            redirect '/places'
-          end # something in admin key field?
-        end # user errors?
-      end # mismatched password entry?
-    end # logged in?
+      @user = User.new(username: params[:username], email: params[:email], password: params[:password])
+      check_errors
+    end
   end
 
   get "/users/:id" do

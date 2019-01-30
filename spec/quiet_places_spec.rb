@@ -12,6 +12,10 @@ require_relative 'spec_helper'
 
   describe "Signup Page" do
 
+    before(:all) do
+      get '/logout'
+    end
+
     it 'loads the signup page' do
       visit('/')
       click_link('Sign Up')
@@ -19,15 +23,14 @@ require_relative 'spec_helper'
     end
 
     it 'signup directs user to places index' do
-      params = {
-        :username => "skittles123",
-        :email => "skittles@aol.com",
-        :password => "rainbows",
-        :password_confirm => "rainbows"
-      }
-      post '/signup', params
-      binding.pry
-      expect(last_response.location).to include("/places")
+      visit('/signup')
+      fill_in('username', :with => 'skittles123')
+      fill_in('email', :with => 'skittles@aol.com')
+      fill_in('password', :with => 'rainbows')
+      fill_in('password_confirm', :with => 'rainbows')
+      click_button('submit')
+      follow_redirect!
+      expect(page.current_path).to eq('/places')
     end
 
     it 'does not let a user sign up without a username' do

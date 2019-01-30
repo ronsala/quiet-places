@@ -32,14 +32,31 @@ class ApplicationController < Sinatra::Base
         login_user
       end
     end
-    
-    def confirm_password
-      if params[:password] != params[:password_confirm]
-        flash[:match] = "Passwords must match. Please try again."
-        redirect '/signup'
+
+    def check_errors
+      if @user.errors.any?
+        if @user.errors.messages[:username]
+          flash[:user] = "Username #{@user.errors.messages[:username][0]}. Please try again."
+          redirect '/signup'
+        elsif @user.errors.messages[:email]
+          flash[:email] = "Email #{@user.errors.messages[:email][0]}. Please try again."
+          redirect '/signup'
+        elsif @user.errors.messages[:password]
+          flash[:password] = "Password #{@user.errors.messages[:password][0]}. Please try again."
+          redirect '/signup'
+        elsif params[:password] != params[:password_confirm]
+            flash[:match] = "Passwords must match. Please try again."
+            redirect '/signup'
+        end
       else
-        @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+        create_user
       end
+    end
+
+    def create_user
+      @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+      session[:user_id] = @user.id
+      redirect '/places'
     end
     
     def current_user

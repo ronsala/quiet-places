@@ -162,13 +162,6 @@ require_relative 'spec_helper'
         expect(page.body).to include(review2.title)
       end
     end
-
-    context 'logged out' do
-      it 'does not let a user view the places index if not logged in' do
-        get '/places'
-        expect(last_response.location).to include("/login")
-      end
-    end
   end
 
   describe 'new action' do
@@ -181,7 +174,7 @@ require_relative 'spec_helper'
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit '/places/new'
+        visit '/reviews/new'
         expect(page.status_code).to eq(200)
       end
 

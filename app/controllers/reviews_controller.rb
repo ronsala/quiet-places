@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
       erb :"/reviews/index"
   end
 
-  get "/reviews/new/:id" do
+  get "/reviews/new" do
     redirect_if_not_logged_in
     @place = Place.find(params[:id])
     erb :"/reviews/new"

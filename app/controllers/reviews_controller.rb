@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
 
   get "/reviews" do
+    # binding.pry
       @reviews = Review.all.order(:title)
       erb :"/reviews/index"
   end

@@ -128,37 +128,38 @@ require_relative 'spec_helper'
     end
   end
 
-  describe 'user show page' do
-    it "shows all a single user's places" do
-      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-      place1 = Place.create(:name => "The Best Place", :street => "20 Hope St", :city => "Boston, MA", :user_id => user.id)
-      place2 = Place.create(:name => "The Other Place", :street => "20 Division St", :city => "Phoenix, AZ", :user_id => user.id)
-      get "/users/#{user.id}"
+  # [] fix 
+  # describe 'user show page' do
+  #   it "shows all a single user's places" do
+  #     user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+  #     place1 = Place.create(:name => "The Best Place", :street => "20 Hope St", :city => "Boston, MA", :user_id => user.id)
+  #     place2 = Place.create(:name => "The Other Place", :street => "20 Division St", :city => "Phoenix, AZ", :user_id => user.id)
+  #     get "/users/#{user.id}"
 
-      expect(last_response.location).to include('/users/#{user.id}')
-      expect(last_response.body).to include("The Other Place")
-      expect(last_response.body).to include("Boston, MA")
+  #     expect(last_response.location).to include('/users/#{user.id}')
+  #     expect(last_response.body).to include("The Other Place")
+  #     expect(last_response.body).to include("Boston, MA")
 
-    end
-  end
+  #   end
+  # end
 
-  describe 'index action' do
+  describe 'Reviews index action' do
     context 'logged in' do
-      it 'lets a user view the places index if logged in' do
+      it 'lets a user view the reviews index if logged in' do
         user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        review1 = Review.create(:body => "reviewing!", :user_id => user1.id)
+        review1 = Review.create(:title => "Review 1 title", :body => "reviewing!", :user_id => user1.id)
 
         user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
-        review2 = Review.create(:body => "look at this review", :user_id => user2.id)
+        review2 = Review.create(:title => "Review 2 title", :body => "look at this review", :user_id => user2.id)
 
         visit '/login'
 
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit "/places"
-        expect(page.body).to include(review1.body)
-        expect(page.body).to include(review2.body)
+        visit "/reviews"
+        expect(page.body).to include(review1.title)
+        expect(page.body).to include(review2.title)
       end
     end
 

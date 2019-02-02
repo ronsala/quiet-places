@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
     erb :"/reviews/new"
   end
 
-  post "/reviews/new" do
+  post "/reviews" do
     redirect_if_not_logged_in
     @review = Review.create(place_id: params[:place_id], title: params[:title], tv: params[:tv], volume: params[:volume], quality: params[:quality], body: params[:body])
     if @review.errors.any?

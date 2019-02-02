@@ -81,6 +81,7 @@ class PlacesController < ApplicationController
   end
 
   get "/places/:id" do
+    binding.pry
     @place = Place.find(params[:id])
     erb :"/places/show"
   end

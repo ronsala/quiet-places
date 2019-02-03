@@ -211,8 +211,9 @@ require_relative 'spec_helper'
         fill_in(:password, :with => "kittens")
         click_button 'submit'
 
-        visit '/places/new'
+        visit '/reviews/new'
 
+        fill_in(:title, :with => "This is my review")
         fill_in(:body, :with => "review!!!")
         click_button 'submit'
 
@@ -233,20 +234,21 @@ require_relative 'spec_helper'
         fill_in(:password, :with => "kittens")
         click_button 'submit'
 
-        visit '/places/new'
+        visit '/reviews/new'
 
+        fill_in(:title, :with => "My blank review")
         fill_in(:body, :with => "")
         click_button 'submit'
 
         expect(Review.find_by(:body => "")).to eq(nil)
-        expect(page.current_path).to eq("/places/new")
+        expect(page.current_path).to eq("/reviews/new")
       end
     end
 
     context 'logged out' do
       it 'does not let user view new review form if not logged in' do
-        get '/places/new'
-        expect(last_response.location).to include("/login")
+        visit '/places/new'
+        expect(page.current_path).to eq('/')
       end
     end
   end

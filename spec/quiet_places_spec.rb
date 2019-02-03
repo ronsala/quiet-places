@@ -1,4 +1,4 @@
-# Adapted from Flatiron School's Fwitter spec
+# First section of tests adapted from Flatiron School's Fwitter spec
 
 require_relative 'spec_helper'
 
@@ -254,35 +254,21 @@ require_relative 'spec_helper'
     end
   end
 
-            # [] fix
-  # describe 'show action' do
+  describe 'show action' do
 
-    # context 'logged in' do
+    context 'logged in' do
 
-    #   it 'displays a single review' do
+      it 'displays a single review' do
 
-    #     user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-    #     review = Review.create(:title => "Boss Review", :body => "i am a boss at reviewing", :user_id => user.id)
-    #     place = Place.create(user_id: "1", name: "Louie's Breakfast", street: "20 Wabash St.", city: "New Jack City", state: "UT", category: "restaurant", website: "www.louies.com")
-
-    #     visit '/login'
-
-    #     fill_in(:username, :with => "becky567")
-    #     fill_in(:password, :with => "kittens")
-    #     click_button 'submit'
-
-    #     # click_link('place.name')
-    #     # click_link('Review place.name')
-    #     # binding.pry
-    #     # visit "/reviews/1"
-    #     # expect(page.status_code).to eq(200)
-    #     # expect(page.current_path).to eq("/reviews/1")
-    #     expect(page.body).to include("Delete")
-    #     expect(page.body).to include(review.body)
-    #     expect(page.body).to include("Edit")
-    #   end
-    # end
-  # end
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        review = Review.create(:title => "Boss Review", :body => "i am a boss at reviewing", :user_id => user.id)
+        place = Place.create(user_id: "1", name: "Louie's Breakfast", street: "20 Wabash St.", city: "New Jack City", state: "UT", category: "restaurant", website: "www.louies.com")
+        visit "/reviews/1"
+        expect(page.body).to include("Boss Review")
+        expect(page.body).to include("New Jack City")
+      end
+    end
+  end
 
   describe 'edit action' do
     context "logged in" do

@@ -26,7 +26,7 @@ class ReviewsController < ApplicationController
       elsif @review.errors.messages[:body]
         flash[:body] = "Review body #{@review.errors.messages[:body][0]}. Please try again."
       end
-      redirect '/reviews/new'
+      redirect request.referrer
     else
       @review.user_id = current_user.id
       @review.save
@@ -37,7 +37,6 @@ class ReviewsController < ApplicationController
       @user.reviews << @review
       @user.save
       redirect "/reviews/#{@review.id}"
-      binding.pry
     end
   end
 

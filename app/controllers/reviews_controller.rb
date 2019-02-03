@@ -1,14 +1,19 @@
 class ReviewsController < ApplicationController
 
   get "/reviews" do
-    # binding.pry
       @reviews = Review.all.order(:title)
       erb :"/reviews/index"
   end
 
-  get "/reviews/new" do
+  get "/reviews/new/:id" do
     redirect_if_not_logged_in
     @place = Place.find(params[:id])
+    erb :"/reviews/new"
+  end
+
+  get "/reviews/new" do
+    redirect_if_not_logged_in
+    @places = Place.all
     erb :"/reviews/new"
   end
 

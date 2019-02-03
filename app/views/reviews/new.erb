@@ -1,12 +1,16 @@
+
 <h3>Create a Review</h3>
-<br>
 <p>* Required</p>
 <p>Place:</p>
-<form action="/reviews/new" method="POST">
-  <input type="hidden" name="place_id" id="<%= @place.id %>" value="<%= @place.id %>"></input>>
-  <%Place.all.each do |place|%>
-    <input type="checkbox" name="place_id" id="<%= place.name %>" value="<%=place.id%>"><%=place.name%></input>
-  <%end%><br><br>
+<form action="/reviews" method="POST">
+  <% if @place %>
+      <h2><%= @place.name %></h2>
+       <input type="hidden" name="place_id" id="<%= @place.id %>" value="<%= @place.id %>"></input>
+  <% else %>
+    <%@places.each do |place|%>
+      <input type="checkbox" name="place_id" id="<%= place.name %>" value="<%=place.id%>"><%=place.name%></input><br>
+    <%end%><br><br>
+  <% end %>
   <p>Title * <input type="text" name="title"></p>
     <% if flash[:title] %>
       <p><strong><%= flash[:title] %></strong></p>

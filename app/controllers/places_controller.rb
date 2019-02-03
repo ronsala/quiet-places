@@ -24,8 +24,8 @@ class PlacesController < ApplicationController
       redirect '/places/new'
     else
       @place.user_id = current_user.id
-      @place.save
       @user = User.find(@place.user_id)
+      @place.save
       @user.places << @place
       @user.save
       redirect "/places/#{@place.id}"
@@ -81,7 +81,6 @@ class PlacesController < ApplicationController
   end
 
   get "/places/:id" do
-    binding.pry
     @place = Place.find(params[:id])
     erb :"/places/show"
   end

@@ -49,9 +49,13 @@ class ReviewsController < ApplicationController
 
   get "/reviews/:id/edit" do
     redirect_if_not_logged_in
-    @review = Review.find(params[:id])
-    @place = Place.find(@review.place_id)
-    erb :"/reviews/edit"
+    @review = Review.find_by(:id => params[:id])
+    @place = Place.find_by(@review.place_id)
+    if current_user.id == @review.user_id
+      erb :"/reviews/edit"
+    else
+      redirect '/'
+    end
   end
 
   post "/reviews/:id" do

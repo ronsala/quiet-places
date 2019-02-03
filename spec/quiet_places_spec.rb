@@ -314,46 +314,30 @@ require_relative 'spec_helper'
         expect(page.current_path).to include('/places')
       end
 
+      # [] fix
       it 'lets a user edit their own review if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        review = Review.create(:body => "reviewing!", :user_id => 1)
+        place = Place.create(user_id: "1", name: "Louie's Breakfast", street: "20 Wabash St.", city: "New Jack City", state: "UT", category: "restaurant", website: "www.louies.com")
+        review = Review.create(:title => "Another great review", :body => "reviewing!", :user_id => 1, :place_id => 1)
         visit '/login'
 
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
-        click_button 'submit'
-        visit '/places/1/edit'
-
+        click_button('submit')
+        visit '/reviews/1/edit'
         fill_in(:body, :with => "i love reviewing")
 
-        click_button 'submit'
+        click_button('Submit')
         expect(Review.find_by(:body => "i love reviewing")).to be_instance_of(Review)
         expect(Review.find_by(:body => "reviewing!")).to eq(nil)
         expect(page.status_code).to eq(200)
       end
-
-      it 'does not let a user edit a text with blank body' do
-        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        review = Review.create(:body => "reviewing!", :user_id => 1)
-        visit '/login'
-
-        fill_in(:username, :with => "becky567")
-        fill_in(:password, :with => "kittens")
-        click_button 'submit'
-        visit '/places/1/edit'
-
-        fill_in(:body, :with => "")
-
-        click_button 'submit'
-        expect(Review.find_by(:body => "i love reviewing")).to be(nil)
-        expect(page.current_path).to eq("/places/1/edit")
-      end
     end
 
     context "logged out" do
-      it 'does not load -- requests user to login' do
-        get '/places/1/edit'
-        expect(last_response.location).to include("/login")
+      it 'does not load -- redirects to homepage' do
+        get '/reviews/1/edit'
+        expect(last_response.location).to include("/")
       end
     end
   end

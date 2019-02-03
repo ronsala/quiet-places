@@ -128,20 +128,20 @@ require_relative 'spec_helper'
     end
   end
 
-  # [] fix 
-  # describe 'user show page' do
-  #   it "shows all a single user's places" do
-  #     user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-  #     place1 = Place.create(:name => "The Best Place", :street => "20 Hope St", :city => "Boston, MA", :user_id => user.id)
-  #     place2 = Place.create(:name => "The Other Place", :street => "20 Division St", :city => "Phoenix, AZ", :user_id => user.id)
-  #     get "/users/#{user.id}"
 
-  #     expect(last_response.location).to include('/users/#{user.id}')
-  #     expect(last_response.body).to include("The Other Place")
-  #     expect(last_response.body).to include("Boston, MA")
+  describe 'user show page' do
+    it "shows all a single user's places" do
+      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+      place = Place.create(user_id: "1", name: "Louie's Breakfast", street: "20 Wabash St.", city: "New Jack City", state: "UT", category: "restaurant", website: "www.example.com")
+      place2 = Place.create(user_id: "1", name: "The Other Place", street: "20 Division St", city: "Phoenix", state: "AZ", category: "bar", website: "www.example.com")
 
-  #   end
-  # end
+      visit "/users/1"
+
+      expect(page.current_path).to eq("/users/1")
+      expect(page).to have_content("The Other Place")
+      expect(page).to have_content("New Jack City")
+    end
+  end
 
   describe 'Reviews index action' do
     context 'logged in' do
@@ -314,7 +314,6 @@ require_relative 'spec_helper'
         expect(page.current_path).to include('/places')
       end
 
-      # [] fix
       it 'lets a user edit their own review if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
         place = Place.create(user_id: "1", name: "Louie's Breakfast", street: "20 Wabash St.", city: "New Jack City", state: "UT", category: "restaurant", website: "www.louies.com")
@@ -346,44 +345,17 @@ require_relative 'spec_helper'
     context "logged in" do
       it 'lets a user delete their own review if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        review = Review.create(:body => "reviewing!", :user_id => 1)
+        place = Place.create(user_id: "1", name: "Louie's Breakfast", street: "20 Wabash St.", city: "New Jack City", state: "UT", category: "restaurant", website: "www.louies.com")
+        review = Review.create(:title => "Another great review", :body => "reviewing!", :user_id => 1, :place_id => 1)
         visit '/login'
 
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
-        click_button 'submit'
-        visit 'places/1'
-        click_button "Delete Review"
+        click_button('submit')
+        visit 'reviews/1'
+        click_link("Delete")
         expect(page.status_code).to eq(200)
         expect(Review.find_by(:body => "reviewing!")).to eq(nil)
       end
-
-      it 'does not let a user delete a review they did not create' do
-        user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        review1 = Review.create(:body => "reviewing!", :user_id => user1.id)
-
-        user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
-        review2 = Review.create(:body => "look at this review", :user_id => user2.id)
-
-        visit '/login'
-
-        fill_in(:username, :with => "becky567")
-        fill_in(:password, :with => "kittens")
-        click_button 'submit'
-        visit "places/#{review2.id}"
-        click_button "Delete Review"
-        expect(page.status_code).to eq(200)
-        expect(Review.find_by(:body => "look at this review")).to be_instance_of(Review)
-        expect(page.current_path).to include('/places')
-      end
-    end
-
-    context "logged out" do
-      it 'does not load let user delete a review if not logged in' do
-        review = Review.create(:body => "reviewing!", :user_id => 1)
-        visit '/places/1'
-        expect(page.current_path).to eq("/login")
-      end
     end
   end
-# end

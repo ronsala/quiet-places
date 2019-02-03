@@ -18,7 +18,6 @@ class UsersController < ApplicationController
   end
 
   get "/users/:id" do
-    redirect_if_not_logged_in
     @user = User.find(params[:id])
     @places = @user.places
     @reviews = @user.reviews

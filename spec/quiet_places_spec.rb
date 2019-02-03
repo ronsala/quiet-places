@@ -180,6 +180,7 @@ require_relative 'spec_helper'
 
       it 'lets user create a review if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        place = Place.create(user_id: "1", name: "Louie's Breakfast", street: "20 Wabash St.", city: "New Jack City", state: "UT", category: "restaurant", website: "www.louies.com")
 
         visit '/login'
 
@@ -187,7 +188,9 @@ require_relative 'spec_helper'
         fill_in(:password, :with => "kittens")
         click_button 'submit'
 
-        visit '/places/new'
+        visit '/reviews/new'
+        check("Louie's Breakfast")
+        fill_in(:title, :with => "This is my review")
         fill_in(:body, :with => "review!!!")
         click_button 'submit'
 

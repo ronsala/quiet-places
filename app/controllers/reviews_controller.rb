@@ -37,6 +37,7 @@ class ReviewsController < ApplicationController
       @user.reviews << @review
       @user.save
       redirect "/reviews/#{@review.id}"
+      binding.pry
     end
   end
 

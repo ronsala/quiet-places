@@ -3,9 +3,9 @@
       <h2>Your Review of <%= @place.name %></h2>
        <input type="hidden" name="place_id" id="<%= @place.id %>" value="<%= @place.id %>"></input>
   <% else %>
-    <h3>Choose place to review: <%= @place.name %></h3>
+    <h3>Choose place to review:</h3>
     <%@places.each do |place|%>
-      <input type="checkbox" name="place_id" id="<%= place.name %>" value="<%=place.id%>"><%=place.name%></input><br>
+      <input type="checkbox" name="place_id" id="<%= place.name %>" value="<%=place.id%>"> <%=place.name%></input><br>
     <%end%><br><br>
   <% end %>
 

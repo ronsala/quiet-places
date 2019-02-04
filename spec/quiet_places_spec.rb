@@ -261,8 +261,8 @@ require_relative 'spec_helper'
       it 'displays a single review' do
 
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        review = Review.create(:title => "Boss Review", :body => "i am a boss at reviewing", :user_id => user.id)
         place = Place.create(user_id: "1", name: "Louie's Breakfast", street: "20 Wabash St.", city: "New Jack City", state: "UT", category: "restaurant", website: "www.louies.com")
+        review = Review.create(:title => "Boss Review", :body => "i am a boss at reviewing", :user_id => user.id, :place_id => place.id)
         visit "/reviews/1"
         expect(page.body).to include("Boss Review")
         expect(page.body).to include("New Jack City")

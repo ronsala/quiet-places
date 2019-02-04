@@ -4,7 +4,7 @@
 <h3><%= @place.name %></h3>
 <p><%= @place.street %>, <%= @place.city %>, <%= @place.state %></p>
 <br>
-<form action="/reviews/<%= @review.id %>" method="POST">
+<form action="/reviews/<%= @review.id %>" method="POST" autocomplete="nope">
   <p>Current Title: <%= @review.title %></p>
   <p>New Title: <input type="text" name="title"></p>
   <br>

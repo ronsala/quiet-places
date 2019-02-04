@@ -2,7 +2,7 @@
 <h3>Create a Review</h3>
 <p>* Required</p>
 <p>Place:</p>
-<form action="/reviews" method="POST">
+<form action="/reviews" method="POST" autocomplete="nope">
   <% if @place %>
       <h2><%= @place.name %></h2>
        <input type="hidden" name="place_id" id="<%= @place.id %>" value="<%= @place.id %>"></input>

@@ -1,4 +1,4 @@
-# First section of tests adapted from Flatiron School's Fwitter spec
+# First section of tests adapted from Flatiron School's Fwitter spec:
 
 require_relative 'spec_helper'
 
@@ -344,4 +344,46 @@ require_relative 'spec_helper'
         expect(Review.find_by(:body => "reviewing!")).to eq(nil)
       end
     end
+  end
+
+  # Tests from scratch:
+
+  describe 'Admin functions' do
+    it 'with correct key can sign up as an admin' do
+
+
+      visit('/signup')
+      fill_in('username', :with => 'True Admin')
+      fill_in('email', :with => 'true@example.com')
+      fill_in('password', :with => 'adminspassword')
+      fill_in('password_confirm', :with => 'adminspassword')
+      fill_in('admin_key', :with => '149162')
+      click_button('submit')
+      # follow_redirect!
+      expect(page.current_path).to eq('/places')
+      expect(page).to have_content("Admin account")
+    end
+
+    # it 'with incorrect key cannot sign up as an admin' do
+      
+    # end
+
+    # it 'can delete review by other user' do
+    #   user = User.create(:username => "spammer", :email => "spam@example.com", :password => "garbage")
+    #   review1 = Review.create(:title => "Total %$#&!}", :body => "Nastiness!", :user_id => user.id)
+
+    # visit('/signup')
+    # fill_in('username', :with => 'True Admin')
+    # fill_in('email', :with => 'true@example.com')
+    # fill_in('password', :with => 'adminspassword')
+    # fill_in('password_confirm', :with => 'adminspassword')
+    # fill_in('admin_key', :with => '149162')
+    # click_button('submit')
+
+    # visit('/reviews/1')
+
+    # review = Review.find_by(:body => "Nastiness!")
+    # expect(review).to be_nil
+    # end
+
   end

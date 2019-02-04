@@ -23,14 +23,13 @@ class ApplicationController < Sinatra::Base
           @user.is_admin = true
           @user.save
           session[:user_id] = @user.id
-          redirect '/places'
         else
           flash[:admin_mismatch] = "Admin key not recognized. Please try again."
           redirect '/signup'
         end
-      else
-        login_user
       end
+      @user.save
+      redirect '/places'
     end
 
     def check_errors
@@ -54,9 +53,10 @@ class ApplicationController < Sinatra::Base
     end
 
     def create_user
-      @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+      # @user = User.create(username: params[:username], email: params[:email], password: params[:password])
       session[:user_id] = @user.id
-      redirect '/places'
+      check_admin_key
+      
     end
     
     def current_user

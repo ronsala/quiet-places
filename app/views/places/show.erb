@@ -16,7 +16,9 @@
 <br>
 <p><a href="/reviews/new/<%= @place.id %>">Review <%= @place.name %></a></p>
 <br>
-<% if current_user == @place.user || current_user.is_admin? %>
-  <p><a href="/places/<%= @place.id %>/edit">Edit</a>
-  <a href="/places/<%= @place.id %>/delete">Delete</a></p>
+<% if current_user %>
+  <% if current_user == @review.user || current_user.is_admin? %>
+    <p><a href="/reviews/<%=@review.id%>/edit">Edit</a>
+    <a href="/reviews/<%=@review.id%>/delete">Delete</a></p>
+  <% end %>
 <% end %>

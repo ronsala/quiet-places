@@ -8,7 +8,7 @@
   <p><strong><%= flash[:messages] %></strong></p>
 <% end %>
 
-<form action="/users/<%= @user.id %>" method="POST">
+<form action="/users/<%= @user.id %>" method="POST" autocomplete="nope">
   <p>Current Username: <%= @user.username %></p>
   <p>New Username: <input type="text" name="username"></p>
     <% if flash[:user] %>

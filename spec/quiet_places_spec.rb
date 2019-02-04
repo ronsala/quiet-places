@@ -132,14 +132,13 @@ require_relative 'spec_helper'
   describe 'user show page' do
     it "shows all a single user's places" do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-      place = Place.create(user_id: "1", name: "Louie's Breakfast", street: "20 Wabash St.", city: "New Jack City", state: "UT", category: "restaurant", website: "www.example.com")
+      place = Place.create(user_id: "1", name: "Louie's Brunch", street: "20 Wabash St.", city: "New Jack City", state: "UT", category: "restaurant", website: "www.example.com")
       place2 = Place.create(user_id: "1", name: "The Other Place", street: "20 Division St", city: "Phoenix", state: "AZ", category: "bar", website: "www.example.com")
-
       visit "/users/1"
 
       expect(page.current_path).to eq("/users/1")
       expect(page).to have_content("The Other Place")
-      expect(page).to have_content("New Jack City")
+      expect(page).to have_content("Louie's Brunch")
     end
   end
 

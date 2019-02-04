@@ -82,9 +82,11 @@ class ReviewsController < ApplicationController
   end
 
   get "/reviews/:id/delete" do
-    @review = Review.find(params[:id])
-    if @review && @review.user == current_user
-      @review.delete
+    @review = Review.find_by(id: params[:id])
+    if @review
+      if @review.user == current_user || current_user.is_admin?
+        @review.delete
+      end
     end
     redirect "/reviews"
   end

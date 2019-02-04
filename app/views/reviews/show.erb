@@ -8,7 +8,9 @@
 <p><%= @review.body %></p>
 <br>
 
-<% if current_user == @review.user %>
-  <p><a href="/reviews/<%=@review.id%>/edit">Edit</a>
-  <a href="/reviews/<%=@review.id%>/delete">Delete</a></p>
+<% if current_user %>
+  <% if current_user == @review.user || current_user.is_admin? %>
+    <p><a href="/reviews/<%=@review.id%>/edit">Edit</a>
+    <a href="/reviews/<%=@review.id%>/delete">Delete</a></p>
+  <% end %>
 <% end %>

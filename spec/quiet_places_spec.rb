@@ -375,22 +375,24 @@ require_relative 'spec_helper'
       expect(page).to have_content("Admin key not recognized")
     end
 
-    # it 'can delete review by other user' do
-    #   user = User.create(:username => "spammer", :email => "spam@example.com", :password => "garbage")
-    #   review1 = Review.create(:title => "Total %$#&!}", :body => "Nastiness!", :user_id => user.id)
+    it 'can delete review by other user' do
+      user = User.create(:username => "spammer", :email => "spam@example.com", :password => "garbage")
+      review1 = Review.create(:title => "Total %$#&!}", :body => "Nastiness!", :user_id => user.id)
 
-    # visit('/signup')
-    # fill_in('username', :with => 'True Admin')
-    # fill_in('email', :with => 'true@example.com')
-    # fill_in('password', :with => 'adminspassword')
-    # fill_in('password_confirm', :with => 'adminspassword')
-    # fill_in('admin_key', :with => '149162')
-    # click_button('submit')
+    visit('/signup')
+    fill_in('username', :with => 'True Admin')
+    fill_in('email', :with => 'true@example.com')
+    fill_in('password', :with => 'adminspassword')
+    fill_in('password_confirm', :with => 'adminspassword')
+    fill_in('admin_key', :with => '149162')
+    click_button('submit')
 
-    # visit('/reviews/1')
+    visit('/reviews/1')
+    expect(page).to have_content("Nastiness!")
+    expect(page).to have_content("Delete")
+    visit('/reviews/1/delete')
 
-    # review = Review.find_by(:body => "Nastiness!")
-    # expect(review).to be_nil
-    # end
+    expect(Review.find_by(:body => "Nastiness!")).to eq(nil)
+    end
 
   end

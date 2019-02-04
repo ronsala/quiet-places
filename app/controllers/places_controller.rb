@@ -1,5 +1,15 @@
 class PlacesController < ApplicationController
 
+  get "/places" do
+    @places = Place.all.order(:name)
+    erb :"/places/index"
+  end
+  
+  get "/places/new" do
+    redirect_if_not_logged_in
+    erb :"/places/new"
+  end
+
   post "/places" do
     redirect_if_not_logged_in
     @place = Place.create(name: params[:name], street: params[:street], city: params[:city], state: params[:state], category: params[:category], website: params[:website])
@@ -20,6 +30,11 @@ class PlacesController < ApplicationController
       @user.save
       redirect "/places/#{@place.id}"
     end
+  end
+
+  get "/places/:id" do
+    @place = Place.find(params[:id])
+    erb :"/places/show"
   end
 
   get "/places/:id/edit" do
@@ -68,20 +83,5 @@ class PlacesController < ApplicationController
       @place.delete
     end
     redirect "/places"
-  end
-
-  get "/places/:id" do
-    @place = Place.find(params[:id])
-    erb :"/places/show"
-  end
-
-  get "/places/new" do
-    redirect_if_not_logged_in
-    erb :"/places/new"
-  end
-
-  get "/places" do
-    @places = Place.all.order(:name)
-    erb :"/places/index"
   end
 end

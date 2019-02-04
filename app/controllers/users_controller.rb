@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
   get "/users/:id/edit" do
     @user = User.find(params[:id])
-    unless current_user == @user || current_user.is_admin
+    unless current_user == @user || current_user.is_admin?
       redirect "/"
     end
     erb :"/users/edit"
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   post "/users/:id" do
     @user = User.find(params[:id])
 
-    unless current_user == @user || current_user.is_admin
+    unless current_user == @user || current_user.is_admin?
       redirect "/"
     end
 

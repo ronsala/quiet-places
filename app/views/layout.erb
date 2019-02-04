@@ -34,7 +34,7 @@
       <% if logged_in? %>
         <p>Logged in as <a href='/users/<%= current_user.id %>'><%= current_user.username %></p></a>
       <% end %>
-      <% if logged_in? && current_user.is_admin %>
+      <% if logged_in? && current_user.is_admin? %>
         <p><em>Admin account</em></p>
       <% end %>
       <br>

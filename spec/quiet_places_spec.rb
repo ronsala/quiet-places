@@ -350,8 +350,6 @@ require_relative 'spec_helper'
 
   describe 'Admin functions' do
     it 'with correct key can sign up as an admin' do
-
-
       visit('/signup')
       fill_in('username', :with => 'True Admin')
       fill_in('email', :with => 'true@example.com')
@@ -359,14 +357,23 @@ require_relative 'spec_helper'
       fill_in('password_confirm', :with => 'adminspassword')
       fill_in('admin_key', :with => '149162')
       click_button('submit')
-      # follow_redirect!
+
       expect(page.current_path).to eq('/places')
       expect(page).to have_content("Admin account")
     end
 
-    # it 'with incorrect key cannot sign up as an admin' do
-      
-    # end
+    it 'with incorrect key cannot sign up as an admin' do
+      visit('/signup')
+      fill_in('username', :with => 'False Admin')
+      fill_in('email', :with => 'false@example.com')
+      fill_in('password', :with => 'pass')
+      fill_in('password_confirm', :with => 'pass')
+      fill_in('admin_key', :with => '149163')
+      click_button('submit')
+
+      expect(page.current_path).to eq('/signup')
+      expect(page).to have_content("Admin key not recognized")
+    end
 
     # it 'can delete review by other user' do
     #   user = User.create(:username => "spammer", :email => "spam@example.com", :password => "garbage")

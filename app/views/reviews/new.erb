@@ -1,16 +1,15 @@
-
-<h3>Create a Review</h3>
-<p>* Required</p>
-<p>Place:</p>
 <form action="/reviews" method="POST" autocomplete="nope">
   <% if @place %>
-      <h2><%= @place.name %></h2>
+      <h2>Your Review of <%= @place.name %></h2>
        <input type="hidden" name="place_id" id="<%= @place.id %>" value="<%= @place.id %>"></input>
   <% else %>
+    <h3>Choose place to review: <%= @place.name %></h3>
     <%@places.each do |place|%>
       <input type="checkbox" name="place_id" id="<%= place.name %>" value="<%=place.id%>"><%=place.name%></input><br>
     <%end%><br><br>
   <% end %>
+
+  <p>* Required</p><br>
   <p>Title * <input type="text" name="title"></p>
     <% if flash[:title] %>
       <p><strong><%= flash[:title] %></strong></p>
@@ -52,13 +51,13 @@
     <option value="9">9</option>
     <option value="10">10</option>
   </select></p>
-
-  <p>Your Review:
+  <br>
+  <p>Review *:</p>
     <% if flash[:body] %>
       <p><strong><%= flash[:body] %></strong></p>
     <% end %>
-  <textarea id="body" name="body"
+  <p><textarea id="body" name="body"
             rows="10" cols="94">
   </textarea></p>
-  <input class="btn btn-primary" type="submit" id="submit" value="Submit">
+  <input class="button" type="submit" id="submit" value="Submit">
 </form><br>

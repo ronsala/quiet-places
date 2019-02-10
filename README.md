@@ -33,7 +33,7 @@ Then,
 
 ```bash
 export SECRET_KEY=YOURSECRETKEYHERE
-export ADMIN_KEY=YOURSECRETKEYHERE
+export ADMIN_KEY=YOURADMINKEYHERE
 ```
 
 Please note, the included tests specify the ADMIN_KEY as "149162". Either use this value while testing or change the value in the tests in your fork.

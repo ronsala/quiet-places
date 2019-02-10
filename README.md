@@ -11,14 +11,16 @@ You can either clone the repository directly from GitHub into a local directory 
 
 Once you Fork or Clone this app, cd into that directory and then execute:
 
+*bash:*
+
 ```bash
 bundle install
 rake db:migrate
 ```
 
-Because the app uses the Dotenv gem for environment variable for security, create a file in the top level of the directory, with a .env extention. This file should not be checked into a public repository. In this file, set the values you want to ensure user and admin login secrets, which will be accessible in the ENV hash. For example:
+Because the app uses the Dotenv gem for environment variable for security, create a file in the top level of the directory, with a .env extension. This file should not be checked into a public repository. In this file, set the values you want to ensure user and admin login secrets, which will be accessible in the ENV hash. For example:
 
-config.env:
+*config.env:*
 
 ```
 SECRET_KEY=YOURSECRETKEYHERE
@@ -26,6 +28,8 @@ ADMIN_KEY=YOURADMINKEYHERE
 ```
 
 Then,
+
+*bash:*
 
 ```bash
 export SECRET_KEY=YOURSECRETKEYHERE
@@ -39,6 +43,8 @@ For further documentation on Dotenv, see
 
 ## Usage
 
+*bash:*
+
 ```bash
 shotgun
 ```
@@ -49,6 +55,8 @@ You can watch a video demo at
 < urlHere >.
 
 ## Running the tests
+
+*bash:*
 
 ```bash
 rspec spec/quiet_places_spec.rb

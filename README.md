@@ -11,25 +11,48 @@ You can either clone the repository directly from GitHub into a local directory 
 
 Once you Fork or Clone this app, cd into that directory and then execute:
 
-  $ bundle install
-  $ rake db:migrate
-  $ export SECRET_KEY=QUIETPLEASE
-  $ export ADMIN_KEY=149162
+```bash
+bundle install
+rake db:migrate
+```
+
+Because the app uses the Dotenv gem for environment variable for security, create a file in the top level of the directory, with a .env extention. This file should not be checked into a public repository. In this file, set the values you want to ensure user and admin login secrets, which will be accessible in the ENV hash. For example:
+
+config.env:
+
+```
+SECRET_KEY=YOURSECRETKEYHERE
+ADMIN_KEY=YOURADMINKEYHERE
+```
+
+Then,
+
+```bash
+export SECRET_KEY=YOURSECRETKEYHERE
+export ADMIN_KEY=YOURSECRETKEYHERE
+```
+
+Please note, the included tests specify the ADMIN_KEY as "149162". Either use this value while testing or change the value in the tests in your fork.
+
+For further documentation on Dotenv, see
+<https://github.com/bkeepers/dotenv/blob/master/README.md>
 
 ## Usage
 
-   $ shotgun
+```bash
+shotgun
+```
 
 Click on the link that Shotgun shows you in your terminal to open up the app in your browser.
 
 You can watch a video demo at
 < urlHere >.
 
-## Development
+## Running the tests
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```bash
+rspec spec/quiet_places_spec.rb
+```
 
 ## Contributing
 
@@ -37,7 +60,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/ronsal
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+This app is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 ## Code of Conduct
 

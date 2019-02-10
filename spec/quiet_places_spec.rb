@@ -6,7 +6,7 @@ require_relative 'spec_helper'
     it 'loads the homepage' do
       get '/'
       expect(last_response.status).to eq(200)
-      expect(last_response.body).to include("Welcome To Quiet Places!")
+      expect(last_response.body).to include("Welcome To QuietPlaces!")
     end
   end
 

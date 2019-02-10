@@ -1,30 +1,29 @@
 # QuietPlaces
 
-A quiz game. Challenge your vocabulary! Given a random word, choose the correct definition from a list. Option to see word origin.
+Find where to converse and relax, in peace. Read reviews of restaurants and bars and make your own. QuietPlaces is an MVC Sinatra content management system that allows users to find quality places without the noise that can prevent people from hearing others and being heard and detract from their enjoyment.
 
-You can read a blog post about the writing of this gem at <https://ronsala.net/makefile_002_cli_data_gem--notes_to_a_junior_to_me_dev>.
-
-Add env token for admin privileges?
+# [] You can read a blog post about the creation of QuietPlaces at
+< urlHere >
 
 ## Installation
 
-Add this line to your application's Gemfile:
+You can either clone the repository directly from GitHub into a local directory on your computer or you can Fork the app so that you can contribute to the code.
 
-```ruby
-gem 'quiet-places'
-```
+Once you Fork or Clone this app, cd into that directory and then execute:
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install quiet-places
+  $ bundle install
+  $ rake db:migrate
+  $ export SECRET_KEY=QUIETPLEASE
+  $ export ADMIN_KEY=149162
 
 ## Usage
 
-Start the program in your terminal with `ruby bin/quiet-places`. On starting, WordWise will choose a word and several definitions, one of which is correct. (This process may take a few seconds). Once you've made your choice, type the corresponding number and hit 'enter'. WordWise will tell you if you're correct and, if not, the correct definition. Type 'o' and 'enter' to see the word's origin (etymology) or 'n' and 'enter' for the next question. To exit the game, type 'e' and 'enter'. Watch a video demo at <https://bit.ly/2Kz8zgX>.
+   $ shotgun
+
+Click on the link that Shotgun shows you in your terminal to open up the app in your browser.
+
+You can watch a video demo at
+< urlHere >.
 
 ## Development
 

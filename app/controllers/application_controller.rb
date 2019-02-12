@@ -4,6 +4,7 @@ class ApplicationController < Sinatra::Base
 
   configure do
     set :public_folder, 'public'
+    # set :show_exceptions, false
     set :views, 'app/views'
     enable :sessions unless test?
     register Sinatra::Flash

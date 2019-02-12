@@ -1,8 +1,14 @@
 class ReviewsController < ApplicationController
 
+  # get "/reviews" do
+  #     @reviews = Review.all.order(:title)
+  #     erb :"/reviews/index"
+  # end
+
   get "/reviews" do
-      @reviews = Review.all.order(:title)
-      erb :"/reviews/index"
+    @reviews = Review.all.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
+
+    erb :"/reviews/index"
   end
 
   get "/reviews/new/:id" do

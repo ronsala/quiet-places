@@ -29,6 +29,7 @@ class ReviewsController < ApplicationController
       end
       redirect request.referrer
     else
+      binding.pry
       @review.user_id = current_user.id
       @place = Place.find(@review.place_id)
       @place.reviews << @review

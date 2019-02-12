@@ -146,10 +146,12 @@ require_relative 'spec_helper'
     context 'logged in' do
       it 'lets a user view the reviews index if logged in' do
         user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        review1 = Review.create(:title => "Review 1 title", :body => "reviewing!", :user_id => user1.id)
+        place1 = Place.create(user_id: "1", name: "Louie's Brunch", street: "20 Wabash St.", city: "New Jack City", state: "UT", category: "restaurant", website: "www.example.com")
+        review1 = Review.create(:title => "Review 1 title", :body => "reviewing!", :place_id => place1.id, :user_id => user1.id)
 
         user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
-        review2 = Review.create(:title => "Review 2 title", :body => "look at this review", :user_id => user2.id)
+        place2 = Place.create(user_id: "1", name: "The Other Place", street: "20 Division St", city: "Phoenix", state: "AZ", category: "bar", website: "www.example.com")
+        review2 = Review.create(:title => "Review 2 title", :body => "look at this review",  :place_id => place2.id, :user_id => user2.id)
 
         visit '/login'
 
@@ -220,6 +222,7 @@ require_relative 'spec_helper'
         user2 = User.find_by(:id => user2.id)
         review = Review.find_by(:body => "review!!!")
         expect(review).to be_instance_of(Review)
+        # binding.pry
         expect(review.user_id).to eq(user.id)
         expect(review.user_id).not_to eq(user2.id)
       end

@@ -396,5 +396,4 @@ require_relative 'spec_helper'
 
     expect(Review.find_by(:body => "Nastiness!")).to eq(nil)
     end
-
   end

@@ -1,16 +1,11 @@
 class ReviewsController < ApplicationController
 
-  # get "/reviews" do
-  #     @reviews = Review.all.order(:title)
-  #     erb :"/reviews/index"
-  # end
+  get "/reviews" do
+    
+    @reviews = Review.all.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
 
-    get "/reviews" do
-      
-      @reviews = Review.all.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
-  
-      erb :"/reviews/index"
-    end
+    erb :"/reviews/index"
+  end
 
   get "/reviews/new/:id" do
     redirect_if_not_logged_in

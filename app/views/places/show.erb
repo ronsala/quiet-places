@@ -8,10 +8,10 @@
 
 <h3>Reviews</h3>
 <% if @place.reviews %>
-  <% @place.reviews.each do | review |%>
+  <% @reviews.each do | review | %>
     <p><a href="/reviews/<%= review.id %>"><%= review.title %></a></p>
-  <%end%>
-<%end%>
+  <% end %>
+<% end %>
 <br>
 <p><a href="/reviews/new/<%= @place.id %>">Review <%= @place.name %></a></p>
 <br>

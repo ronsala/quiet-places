@@ -34,6 +34,7 @@ class PlacesController < ApplicationController
 
   get "/places/:id" do
     @place = Place.find(params[:id])
+    @reviews = @place.reviews.sort_by { | review | review.title }
     erb :"/places/show"
   end
 

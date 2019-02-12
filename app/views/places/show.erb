@@ -17,7 +17,7 @@
 <br>
 <% if current_user %>
   <% if current_user == @place.user || current_user.is_admin? %>
-    <p><a href="/reviews/<%=@place.id%>/edit">Edit</a>
-    <a href="/reviews/<%=@place.id%>/delete">Delete</a></p>
+    <p><a href="/places/<%=@place.id%>/edit">Edit</a>
+    <a href="/places/<%=@place.id%>/delete">Delete</a></p>
   <% end %>
 <% end %>

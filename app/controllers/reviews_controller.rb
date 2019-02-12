@@ -1,10 +1,15 @@
 class ReviewsController < ApplicationController
 
   get "/reviews" do
-      @reviews = Review.all.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
-
-      erb :"/reviews/index"
+    @reviews = Review.all.order(:title)
+    erb :"/reviews/index"
   end
+
+  # get "/reviews" do
+  #     @reviews = Review.all.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
+
+  #     erb :"/reviews/index"
+  # end
 
   get "/reviews/new/:id" do
     redirect_if_not_logged_in
@@ -29,16 +34,26 @@ class ReviewsController < ApplicationController
       end
       redirect request.referrer
     else
-      binding.pry
+      # binding.pry
       @review.user_id = current_user.id
+      @review.save
       @place = Place.find(@review.place_id)
       @place.reviews << @review
+      @place.save
       @user = User.find(@review.user_id)
       @user.reviews << @review
-      @place.save
-      @review.save
       @user.save
       redirect "/reviews/#{@review.id}"
+
+      # @review.user_id = current_user.id
+      # @place = Place.find(@review.place_id)
+      # @place.reviews << @review
+      # @user = User.find(@review.user_id)
+      # @user.reviews << @review
+      # @place.save
+      # @review.save
+      # @user.save
+      # redirect "/reviews/#{@review.id}"
     end
   end
 

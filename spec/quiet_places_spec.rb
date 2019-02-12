@@ -282,6 +282,7 @@ require_relative 'spec_helper'
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
+        binding.pry
         visit '/reviews/1/edit'
         expect(page.body).to include(review.body)
       end

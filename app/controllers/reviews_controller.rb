@@ -1,7 +1,8 @@
 class ReviewsController < ApplicationController
 
   get "/reviews" do
-      @reviews = Review.all.order(:title)
+      @reviews = Review.all.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
+
       erb :"/reviews/index"
   end
 
@@ -29,12 +30,12 @@ class ReviewsController < ApplicationController
       redirect request.referrer
     else
       @review.user_id = current_user.id
-      @review.save
       @place = Place.find(@review.place_id)
       @place.reviews << @review
-      @place.save
       @user = User.find(@review.user_id)
       @user.reviews << @review
+      @place.save
+      @review.save
       @user.save
       redirect "/reviews/#{@review.id}"
     end

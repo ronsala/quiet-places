@@ -145,11 +145,13 @@ require_relative 'spec_helper'
   describe 'Reviews index action' do
     context 'logged in' do
       it 'lets a user view the reviews index if logged in' do
+        
+        
         user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        review1 = Review.create(:title => "Review 1 title", :body => "reviewing!", :user_id => user1.id)
+        review1 = Review.create(:title => "Review 1 title", :body => "reviewing!", :place_id => 1, :user_id => user1.id)
 
         user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
-        review2 = Review.create(:title => "Review 2 title", :body => "look at this review", :user_id => user2.id)
+        review2 = Review.create(:title => "Review 2 title", :body => "look at this review", :place_id => 1, :user_id => user2.id)
 
         visit '/login'
 

@@ -1,5 +1,5 @@
 <h2>Reviews</h2>
-
+<%# <% binding.pry %> %>
 <%@reviews.each do |review|%>
     <p><a href='/reviews/<%= review.id %>'><%= review.title %></a></p>
 <%end%>

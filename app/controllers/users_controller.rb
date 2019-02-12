@@ -43,7 +43,6 @@ class UsersController < ApplicationController
     @user.errors.clear
 
     unless params[:password] == params[:password_confirm]
-      binding.pry
       redirect "/users/#{@user.id}/edit"
     end
 

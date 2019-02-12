@@ -6,9 +6,9 @@ class ReviewsController < ApplicationController
   # end
 
     get "/reviews" do
-      # binding.pry
+      
       @reviews = Review.all.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
-  # binding.pry
+  
       erb :"/reviews/index"
     end
 

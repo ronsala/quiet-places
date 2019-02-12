@@ -6,6 +6,7 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions unless test?
+    set :show_exceptions, false
     register Sinatra::Flash
     set :session_secret, ENV["SECRET_KEY"]
   end

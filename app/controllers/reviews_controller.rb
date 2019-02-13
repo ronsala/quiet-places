@@ -65,6 +65,7 @@ class ReviewsController < ApplicationController
     unless current_user == @review.user
       redirect "/"
     end
+    @review.errors.clear
     unless params[:title] == ""
       @review.update(title: params[:title])
     end
@@ -80,7 +81,12 @@ class ReviewsController < ApplicationController
     unless params[:body] == ""
       @review.update(body: params[:body])
     end
-    redirect "/reviews/#{@review.id}"
+    if @review.errors.messages != {}
+      flash[:messages] = "#{@place.errors.full_messages[0]}. Please try again."
+      redirect "/reviews/#{@review.id}/edit"
+    else
+      redirect "/reviews/#{@review.id}"
+    end
   end
 
   get "/reviews/:id/delete" do

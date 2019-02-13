@@ -5,6 +5,7 @@
 <p><%= @place.street %>, <%= @place.city %>, <%= @place.state %></p>
 <br>
 <form action="/reviews/<%= @review.id %>" method="POST" autocomplete="nope">
+  <input id="hidden" type="hidden" name="_method" value="patch">
   <p>Current Title: <%= @review.title %></p>
   <p>New Title: <input type="text" name="title"></p>
   <br>

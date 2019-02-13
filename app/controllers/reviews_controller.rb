@@ -60,7 +60,7 @@ class ReviewsController < ApplicationController
     end
   end
 
-  post "/reviews/:id" do
+  patch "/reviews/:id" do
     @review = Review.find(params[:id])
     unless current_user == @review.user
       redirect "/"

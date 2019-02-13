@@ -46,7 +46,7 @@ class PlacesController < ApplicationController
     erb :"/places/edit"
   end
 
-  post "/places/:id" do
+  patch "/places/:id" do
     @place = Place.find(params[:id])
     unless current_user == @place.user
       redirect "/"

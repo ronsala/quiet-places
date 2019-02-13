@@ -6,7 +6,7 @@
 <% end %>
 
 <form action="/places/<%= @place.id %>" method="POST" autocomplete="nope">
-
+  <input id="hidden" type="hidden" name="_method" value="patch">
   <p>Current Name: <%= @place.name %></p>
   <p>New Name: <input type="text" name="name"></p>
     <% if flash[:name] %>

@@ -45,10 +45,26 @@ app/controllers/places_controller.rb:
   post "/places"
   get "/places"
   get "/places/:id"
-  
+  [] change edits to patch?
+  get "/places/:id/delete"
+
+app/controllers/reviews_controller.rb:
+
+  get "/reviews/new"
+  post "/reviews"
+  get "/reviews"
+  get "/reviews/:id"
+  [] change edits to patch?
+  get "/reviews/:id/delete"
 
 - [x] Ensure that users can't modify content created by other users
+
+  [] change edits to patch? Code from places and reviews controllers
+
 - [x] Include user input validations
+
+
+
 - [x] BONUS - not required - Display validation failures to user with error message (example form URL e.g. /posts/new)
 - [x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
 

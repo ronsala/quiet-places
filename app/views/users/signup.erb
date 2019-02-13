@@ -1,7 +1,7 @@
 <h2>Sign Up</h2>
 <br>
 <p>* Required</p>
-<form action="/signup" method="POST" autocomplete="nope">
+<form action="/signup" method="POST">
   <p>Username * <input type="text" name="username" id="username"></p>
     <% if flash[:user] %>
       <p><strong><%= flash[:user] %></strong></p>

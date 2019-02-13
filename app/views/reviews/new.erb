@@ -1,4 +1,4 @@
-<form action="/reviews" method="POST" autocomplete="nope">
+<form action="/reviews" method="POST">
   <% if @place %>
       <h2>Your Review of <%= @place.name %></h2>
        <input type="hidden" name="place_id" id="<%= @place.id %>" value="<%= @place.id %>"></input>

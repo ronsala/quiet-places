@@ -1,23 +1,13 @@
 <h2><%= @place.name %> </h2>
-<br>
-
-<% if flash[:messages] %>
-  <p><strong><%= flash[:messages] %></strong></p>
-<% end %>
 
 <form action="/places/<%= @place.id %>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="patch">
-  <p>Current Name: <%= @place.name %></p>
-  <p>New Name: <input type="text" name="name"></p>
+  <p>Name: <input type="text" name="name" size="35" value="<%= @place.name %>"></p>
     <% if flash[:name] %>
       <p><strong><%= flash[:name] %></strong></p>
     <% end %>
-  <br>
-  <p>Current Street Address: <%= @place.street %></p>
-  <p>New Street Address: <input type="text" name="street"></p>
-  <br>
-  <p>Current City: <%= @place.city %></p>
-  <p>New City: <input type="city" name="city"></p>
+  <p>Street Address: <input type="text" name="street" size="35" value="<%= @place.street %>"></p>
+  <p>City: <input type="text" name="city" size="35"></p>
     <% if flash[:city] %>
       <p><strong><%= flash[:city] %></strong></p>
     <% end %>
@@ -82,13 +72,12 @@
   <p>New Category: 
       <input type="radio" id="restaurant" name="category" value="restaurant"
             checked>
-      <label for="restaurant">Restaurant</label>
+      <label for="restaurant">restaurant</label>
 
       <input type="radio" id="bar" name="category" value="bar">
-      <label for="bar">Bar</label></p>
+      <label for="bar">bar</label></p>
   <br>
-  <p>Current Website: <%= @place.website %></p>
-  <p>New Website: <input type="city" name="website"></p>
+  <p>Website: <input type="city" name="website" value="<%= @place.website %>"></p>
   <br>
   <input class="button" id="submit" type="submit" value="Submit">
 </form><br>

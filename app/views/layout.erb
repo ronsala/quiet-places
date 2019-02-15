@@ -17,17 +17,17 @@
     <div class="wrapper">
       <nav>
         <% unless request.env['PATH_INFO'] == "/" %>
-          <a href="/">Home</a>
+          <a href="/" class="navbutton">Home</a>
         <% end %>
-        <% if !logged_in? %>
-          <a href="/signup">Sign Up</a>
-          <a href="/login">Log In</a>
+        <% if !logged_in? && request.env['PATH_INFO'] != "/login"%>
+          <a href="/signup" class="navbutton">Sign Up</a>
+          <a href="/login" class="navbutton">Log In</a>
         <% end %>
-        <a href="/places">Places</a>
-        <a href="/reviews">Reviews</a>
+        <a href="/places" class="navbutton">Places</a>
+        <a href="/reviews" class="navbutton">Reviews</a>
         <% if logged_in? %>
-        <a href="/users/<%= current_user.id %>">Account</a> 
-        <a href="/logout">Log Out</a>
+        <a href="/users/<%= current_user.id %>" class="navbutton">Account</a> 
+        <a href="/logout" class="navbutton">Log Out</a>
         <% end %>
       </nav>
       <br>
@@ -42,7 +42,7 @@
         <%= yield %>
 
       <footer class="branding">
-        <small>&copy; 2018 <strong>Ron Sala</strong></small>
+        <small>&copy; 2018-2019 <strong>Ron Sala</strong></small>
       </footer>
     </div>
 

@@ -40,7 +40,7 @@ class PlacesController < ApplicationController
 
   get "/places/:id/edit" do
     @place = Place.find(params[:id])
-    unless current_user == @place.user
+    unless current_user == @place.user || current_user.is_admin
       redirect "/"
     end
     erb :"/places/edit"
@@ -48,7 +48,7 @@ class PlacesController < ApplicationController
 
   patch "/places/:id" do
     @place = Place.find(params[:id])
-    unless current_user == @place.user
+    unless current_user == @place.user || current_user.is_admin
       redirect "/"
     end
     @place.errors.clear

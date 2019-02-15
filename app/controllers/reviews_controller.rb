@@ -53,7 +53,7 @@ class ReviewsController < ApplicationController
     redirect_if_not_logged_in
     @review = Review.find_by(:id => params[:id])
     @place = Place.find_by(@review.place_id)
-    if current_user.id == @review.user_id
+    if current_user.id == @review.user_id || current_user.is_admin
       erb :"/reviews/edit"
     else
       redirect '/'
@@ -62,7 +62,7 @@ class ReviewsController < ApplicationController
 
   patch "/reviews/:id" do
     @review = Review.find(params[:id])
-    unless current_user == @review.user
+    unless current_user == @review.user || current_user.is_admin
       redirect "/"
     end
     @review.errors.clear

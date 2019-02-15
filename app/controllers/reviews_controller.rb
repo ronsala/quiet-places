@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
 
   get "/reviews" do
-    @reviews = Review.all #.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
+    @reviews = Review.all.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
 
     erb :"/reviews/index"
   end

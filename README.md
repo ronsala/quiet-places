@@ -82,6 +82,7 @@ This app is available as open source under the terms of the [MIT License](https:
 ## Acknowledgments
 
 * Lugo for the idea.
+* [Destinasjon Trysil](https://www.flickr.com/photos/trysil/25704381108/in/photostream/) for the homepage image, "Radisson Blu Resort Trysil - Brasserie T" by Ola Matsson, protected under a [Creative Commons Attribution 2.0 Generic License](https://creativecommons.org/licenses/by/2.0/legalcode). The image is unmodified from the original.
 * PurpleBooth for the [README-Template.md gist](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2).
 * [Flatiron School](https://flatironschool.com) for instruction and community.
 * My spouse for inspiration and user testing.

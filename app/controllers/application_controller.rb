@@ -39,17 +39,14 @@ class ApplicationController < Sinatra::Base
       if @user.invalid?
         if @user.errors.messages[:username]
           flash[:user] = "Username #{@user.errors.messages[:username][0]}. Please try again."
-          redirect '/signup'
         elsif @user.errors.messages[:email]
           flash[:email] = "Email #{@user.errors.messages[:email][0]}. Please try again."
-          redirect '/signup'
         elsif @user.errors.messages[:password]
           flash[:password] = "Password #{@user.errors.messages[:password][0]}. Please try again."
-          redirect '/signup'
         elsif params[:password] != params[:password_confirm]
-            flash[:match] = "Passwords must match. Please try again."
-            redirect '/signup'
+          flash[:match] = "Passwords must match. Please try again."
         end
+        redirect '/signup'
       else
         check_admin_key
       end

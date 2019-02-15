@@ -39,8 +39,12 @@ class UsersController < ApplicationController
       redirect "/"
     end
 
-    @reviews = @user.reviews
     @user.errors.clear
+
+    if params[:password] != params[:password_confirm]
+      flash[:match] = "Passwords must match. Please try again."
+      redirect request.referrer
+    end
 
     unless params[:password] == params[:password_confirm]
       redirect "/users/#{@user.id}/edit"

@@ -1,17 +1,15 @@
 <h2><%= @user.username %> </h2>
-<% if current_user.id == @user.id %>
+<% if current_user.id == @user.id || current_user.is_admin %>
   <p><%= @user.email %></p>
 <% end %>
 
 <form action="/users/<%= @user.id %>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="patch">
-  <p>Current Username: <%= @user.username %></p>
-  <p>New Username: <input type="text" name="username"></p>
+  <p>Username: <input type="text" name="username" value="<%= @user.username %>"></p>
     <% if flash[:user] %>
       <p><strong><%= flash[:user] %></strong></p>
     <% end %>
-  <p>Current Email: <%= @user.email %></p>
-  <p>New Email: <input type="text" name="email"></p>
+  <p>Email: <input type="text" name="email" value="<%= @user.email %>"></p>
     <% if flash[:email] %>
       <p><strong><%= flash[:email] %></strong></p>
     <% end %>

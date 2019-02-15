@@ -80,7 +80,7 @@ class PlacesController < ApplicationController
 
   get "/places/:id/delete" do
     @place = Place.find(params[:id])
-    if @place && @place.user == current_user
+    if @place.user == current_user || current_user.is_admin?
       @place.delete
     end
     redirect "/places"

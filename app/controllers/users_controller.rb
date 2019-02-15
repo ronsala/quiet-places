@@ -101,9 +101,11 @@ class UsersController < ApplicationController
 
   get "/users/:id/delete" do
     @user = User.find(params[:id])
-    if @user && @user == current_user
-      session.clear
-      @user.delete
+    if @user
+      if @user == current_user || current_user.is_admin?
+        session.clear
+        @user.delete
+      end
     end
     redirect "/"
   end

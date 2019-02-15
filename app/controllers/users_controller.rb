@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     erb :"/users/edit"
   end
 
-  post "/users/:id" do
+  patch "/users/:id" do
     @user = User.find(params[:id])
 
     unless current_user == @user || current_user.is_admin?

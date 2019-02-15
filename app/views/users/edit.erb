@@ -4,6 +4,7 @@
 <% end %>
 
 <form action="/users/<%= @user.id %>" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="patch">
   <p>Current Username: <%= @user.username %></p>
   <p>New Username: <input type="text" name="username"></p>
     <% if flash[:user] %>

@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
 
   get "/reviews/new" do
     redirect_if_not_logged_in
-    @places = Place.all
+    @places = Place.all.order(:name)
     erb :"/reviews/new"
   end
 

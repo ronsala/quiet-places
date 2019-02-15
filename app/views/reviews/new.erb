@@ -3,14 +3,14 @@
       <h2>Your Review of <%= @place.name %></h2>
        <input type="hidden" name="place_id" id="<%= @place.id %>" value="<%= @place.id %>"></input>
   <% else %>
-    <h3>Choose place to review:</h3>
+    <h3>Choose a place to review:</h3>
     <%@places.each do |place|%>
       <input type="checkbox" name="place_id" id="<%= place.name %>" value="<%=place.id%>"> <%=place.name%></input><br>
     <%end%><br><br>
   <% end %>
 
   <p>* Required</p><br>
-  <p>Title * <input type="text" name="title"></p>
+  <p>Title * <input type="text" name="title" size="35"></p>
     <% if flash[:title] %>
       <p><strong><%= flash[:title] %></strong></p>
     <% end %>
@@ -52,12 +52,12 @@
     <option value="10">10</option>
   </select></p>
   <br>
-  <p>Review *:</p>
+  <p>Comments *:</p>
     <% if flash[:body] %>
       <p><strong><%= flash[:body] %></strong></p>
     <% end %>
   <p><textarea id="body" name="body"
-            rows="10" cols="94">
+            rows="6">
   </textarea></p>
   <br>
   <input class="button" type="submit" id="submit" value="Submit">

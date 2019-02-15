@@ -54,8 +54,12 @@ class UsersController < ApplicationController
       @user.update(email: params[:email])
     end
 
-    unless params[:password] == "" || 
+    unless params[:password] == ""
       @user.update(password: params[:password])
+    end
+
+    unless params[:admin_key] == ""
+      check_admin_key
     end
 
     if @user.errors.messages != {}

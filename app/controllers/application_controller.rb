@@ -23,10 +23,16 @@ class ApplicationController < Sinatra::Base
           @user.is_admin = true
         else
           flash[:admin_mismatch] = "Admin key not recognized. Please try again."
-          redirect '/signup'
+          redirect request.referrer
         end
       end
-      create_user
+
+      if !current_user
+        create_user
+      else
+        @user.update(is_admin: true)
+        redirect "/users/#{@user.id}"
+      end
     end
 
     def check_errors

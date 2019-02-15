@@ -9,7 +9,7 @@
 <h3>Reviews</h3>
 <% if @place.reviews %>
   <% @reviews.each do | review | %>
-    <p><a href="/reviews/<%= review.id %>"><%= review.title %></a></p>
+    <p><a href="/reviews/<%= review.id %>">"<%= review.title %>"</a></p>
   <% end %>
 <% end %>
 <br>

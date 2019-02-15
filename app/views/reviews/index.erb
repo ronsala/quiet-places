@@ -1,7 +1,7 @@
 <h2>Reviews</h2>
 
 <%@reviews.each do |review|%>
-  <p><a href='/reviews/<%= review.id %>'><%= review.place.name %>: <%= review.title %></a></p>
+  <p><a href='/reviews/<%= review.id %>'><%= review.place.name %>: "<%= review.title %>"</a></p>
 <%end%>
 <br>
 

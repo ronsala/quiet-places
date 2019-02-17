@@ -4,7 +4,8 @@
 
 I'm writing this time about my latest project, a content management system (CMS) built with Sinatra and ActiveRecord. It's called [QuietPlaces](https://github.com/ronsala/quiet-places), a web app allowing users to find and review restaurants and bars based on their noise level and overall quality.
 
-I made it to satisfy my Sinatra assessment for [Flatiron School](https://flatironschool.com/).
+I made it to satisfy my Sinatra assessment for [Flatiron School](https://flatironschool.com/). See a demo video at
+<https://youtu.be/VVP6IEfmWn4>.
 
 Making it was a marathon, not a sprint.
 

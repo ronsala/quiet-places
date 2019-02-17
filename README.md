@@ -52,7 +52,8 @@ shotgun
 Click on the link that Shotgun shows you in your terminal to open up the app in your browser.
 
 # [] You can watch a video demo at
-< urlHere >.
+< urlHere >. 
+For a transcript of the video, see demo_transcript.md.
 
 ## Running the tests
 

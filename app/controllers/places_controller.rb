@@ -46,6 +46,38 @@ class PlacesController < ApplicationController
     erb :"/places/edit"
   end
 
+  # patch "/places/:id" do
+  #   @place = Place.find(params[:id])
+  #   unless current_user == @place.user || current_user.is_admin
+  #     redirect "/"
+  #   end
+  #   @place.errors.clear
+  #   unless params[:name] == ""
+  #     @place.update(name: params[:name])
+  #   end
+  #   unless params[:street] == ""
+  #     @place.update(street: params[:street])
+  #   end
+  #   unless params[:city] == ""
+  #     @place.update(city: params[:city])
+  #   end
+  #   unless params[:state] == "--"
+  #     @place.update(state: params[:state])
+  #   end
+  #   unless params[:category] == ""
+  #     @place.update(category: params[:category])
+  #   end
+  #   unless params[:website] == ""
+  #     @place.update(website: params[:website])
+  #   end
+  #     if @place.errors.messages != {}
+  #       flash[:messages] = "#{@place.errors.full_messages[0]}. Please try again."
+  #       redirect "/places/#{@place.id}/edit"
+  #     else
+  #       redirect "/places/#{@place.id}"
+  #     end
+  # end
+
   patch "/places/:id" do
     @place = Place.find(params[:id])
     unless current_user == @place.user || current_user.is_admin
@@ -70,12 +102,12 @@ class PlacesController < ApplicationController
     unless params[:website] == ""
       @place.update(website: params[:website])
     end
-      if @place.errors.messages != {}
-        flash[:messages] = "#{@place.errors.full_messages[0]}. Please try again."
-        redirect "/places/#{@place.id}/edit"
-      else
-        redirect "/places/#{@place.id}"
-      end
+    if @place.errors.messages != {}
+      flash[:name] = "#{@place.errors.full_messages[0]}. Please try again."
+      redirect "/places/#{@place.id}/edit"
+    else
+      redirect "/places/#{@place.id}"
+    end
   end
 
   get "/places/:id/delete" do

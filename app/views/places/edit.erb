@@ -7,10 +7,7 @@
       <p><strong><%= flash[:name] %></strong></p>
     <% end %>
   <p>Street Address: <input type="text" name="street" size="35" value="<%= @place.street %>"></p>
-  <p>City: <input type="text" name="city" size="35"></p>
-    <% if flash[:city] %>
-      <p><strong><%= flash[:city] %></strong></p>
-    <% end %>
+  <p>City: <input type="text" name="city" value="<%= @place.city %>"size="35"></p>
   <br>
   <p>Current State: <%= @place.state %></p>
   <p>New State: 

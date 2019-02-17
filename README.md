@@ -1,9 +1,13 @@
-# [] # QuietPlaces (A work in progress....)
+# QuietPlaces
 
 Find where to converse and relax, in peace. Read reviews of restaurants and bars and make your own. QuietPlaces is an MVC Sinatra content management system that allows users to find quality places without the noise that can prevent people from hearing others and being heard and detract from their enjoyment.
 
-# [] You can read a blog post about the creation of QuietPlaces at
-< urlHere >
+You can watch a video demo at
+<https://youtu.be/VVP6IEfmWn4>.
+For a transcript of the video, see demo_transcript.md.
+
+You can read a blog post about the creation of QuietPlaces at
+<http://ronsala.net/makefile_003_sinatra_cms--learning_by_doing>
 
 ## Installation
 
@@ -51,10 +55,6 @@ shotgun
 
 Click on the link that Shotgun shows you in your terminal to open up the app in your browser.
 
-# [] You can watch a video demo at
-< urlHere >. 
-For a transcript of the video, see demo_transcript.md.
-
 ## Running the tests
 
 *bash:*
@@ -86,4 +86,4 @@ This app is available as open source under the terms of the [MIT License](https:
 * [Destinasjon Trysil](https://www.flickr.com/photos/trysil/25704381108/in/photostream/) for the homepage image, "Radisson Blu Resort Trysil - Brasserie T" by Ola Matsson, protected under a [Creative Commons Attribution 2.0 Generic License](https://creativecommons.org/licenses/by/2.0/legalcode). The image is unmodified from the original.
 * PurpleBooth for the [README-Template.md gist](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2).
 * [Flatiron School](https://flatironschool.com) for instruction and community.
-* My spouse for inspiration and user testing.
+* My spouse for inspiration and rubber ducking.

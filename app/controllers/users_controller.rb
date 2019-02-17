@@ -104,6 +104,21 @@ class UsersController < ApplicationController
     if @user
       if @user == current_user || current_user.is_admin?
         session.clear
+
+        @user.reviews.each do | review |
+          review.delete
+        end
+
+        @user.places.each do | place |
+          place.reviews.each do | review |
+            review.delete
+          end
+        end
+
+        @user.places.each do | place |
+          place.delete
+        end
+
         @user.delete
       end
     end

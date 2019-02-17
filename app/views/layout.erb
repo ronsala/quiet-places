@@ -26,8 +26,8 @@
         <a href="/places" class="navbutton">Places</a>
         <a href="/reviews" class="navbutton">Reviews</a>
         <% if logged_in? %>
-        <a href="/users/<%= current_user.id %>" class="navbutton">Account</a> 
-        <a href="/logout" class="navbutton">Log Out</a>
+          <a href="/users/<%= current_user.id %>" class="navbutton">Account</a> 
+          <a href="/logout" class="navbutton">Log Out</a>
         <% end %>
       </nav>
       <br>

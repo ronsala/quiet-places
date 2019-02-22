@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   get "/users/:id" do
     @user = User.find(params[:id])
     @places = @user.places.sort_by { |place | place.name }
-    @reviews = @user.reviews.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
+    
     erb :"/users/show"
   end
 

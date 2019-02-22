@@ -4,4 +4,8 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :reviews
   has_many :places
+
+  def review_alpha_sort
+    self.reviews.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
+  end
 end

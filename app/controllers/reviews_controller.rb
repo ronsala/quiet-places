@@ -55,8 +55,9 @@ class ReviewsController < ApplicationController
 
   get "/reviews/:id/edit" do
     redirect_if_not_logged_in
-    @review = Review.find_by(:id => params[:id])
-    @place = Place.find_by(@review.place_id)
+    @review = Review.find(params[:id])
+    @place = Place.find(@review.place_id)
+
     if current_user.id == @review.user_id || current_user.is_admin
       erb :"/reviews/edit"
     else
@@ -73,7 +74,7 @@ class ReviewsController < ApplicationController
 
     @review.errors.clear
 
-    @review.update(place_id: params[:place_id], title: params[:title], tv: params[:tv], volume: params[:volume], quality: params[:quality], body: params[:body])
+    @review.update(title: params[:title], tv: params[:tv], volume: params[:volume], quality: params[:quality], body: params[:body])
 
     if @review.errors.any? 
       if @review.errors.messages[:title]

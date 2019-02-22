@@ -41,22 +41,18 @@ class UsersController < ApplicationController
 
     if params[:password] != params[:password_confirm]
       flash[:match] = "Passwords must match. Please try again."
-      binding.pry
       redirect request.referrer
     end
 
-    # binding.pry
     @user.errors.clear
 
     @user.update(username: params[:username], email: params[:email])
 
     unless params[:password] = ""
-      # binding.pry
-      @user.update(params[:password])
+      @user.update(password: params[:password])
     end
 
     if @user.errors.any? 
-      # binding.pry
       if @user.errors.messages[:username]
         flash[:username] = "Name #{@user.errors.messages[:username][0]}. Please try again."
       elsif @user.errors.messages[:email]
@@ -67,11 +63,7 @@ class UsersController < ApplicationController
       redirect "/users/:id/edit"
     end
 
-    unless params[:admin_key] == ""
-      # binding.pry
       check_admin_key
-    end
-
   end
 
   get '/login' do

@@ -11,7 +11,6 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    value = %x( echo 'hi' )
     erb :index
   end
 

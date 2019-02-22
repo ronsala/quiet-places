@@ -2,13 +2,20 @@
 
 <form action="/places/<%= @place.id %>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="patch">
+
   <p>Name: <input type="text" name="name" size="35" value="<%= @place.name %>"></p>
-    <% if flash[:name] %>
-      <p><strong><%= flash[:name] %></strong></p>
-    <% end %>
+  <% if flash[:name] %>
+    <p><strong><%= flash[:name] %></strong></p>
+  <% end %>
+
   <p>Street Address: <input type="text" name="street" size="35" value="<%= @place.street %>"></p>
+  
   <p>City: <input type="text" name="city" value="<%= @place.city %>"size="35"></p>
+  <% if flash[:street] %>
+    <p><strong><%= flash[:street] %></strong></p>
+  <% end %>
   <br>
+
   <p>Current State: <%= @place.state %></p>
   <p>New State: 
     <select name="state">

@@ -3,9 +3,9 @@
 <p>* Required</p>
 <form action="/places" method="POST">
   <p>Name * <input type="text" name="name"></p>
-    <% if flash[:name] %>
-      <p><strong><%= flash[:name] %></strong></p>
-    <% end %>
+      <% if flash[:name] %>
+        <p><strong><%= flash[:name] %></strong></p>
+      <% end %>
   <p>Street Address * <input type="text" name="street"></p>
     <% if flash[:street] %>
       <p><strong><%= flash[:street] %></strong></p>
@@ -14,11 +14,12 @@
     <% if flash[:city] %>
       <p><strong><%= flash[:city] %></strong></p>
     <% end %>
-  <p>State:</p>
+  <p>State *:</p>
     <% if flash[:state] %>
       <p><strong><%= flash[:state] %></strong></p>
     <% end %>
   <select name="state">
+    <option value="--">--</option>
     <option value="AL">Alabama</option>
     <option value="AK">Alaska</option>
     <option value="AZ">Arizona</option>
@@ -70,10 +71,8 @@
     <option value="WI">Wisconsin</option>
     <option value="WY">Wyoming</option>
   </select><br><br>
+
   <p>Category:</p>
-    <% if flash[:category] %>
-      <p><strong><%= flash[:category] %></strong></p>
-    <% end %>
     <div>
       <input type="radio" id="restaurant" name="category" value="restaurant"
             checked>

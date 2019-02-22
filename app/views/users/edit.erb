@@ -7,8 +7,14 @@
   <input id="hidden" type="hidden" name="_method" value="patch">
 
   <p>Username: <input type="text" name="username" value="<%= @user.username %>"></p>
+    <% if flash[:name] %>
+      <p><strong><%= flash[:name] %></strong></p><br>
+    <% end %>
 
   <p>Email: <input type="text" name="email" value="<%= @user.email %>"></p>
+      <% if flash[:email] %>
+      <p><strong><%= flash[:email] %></strong></p><br>
+    <% end %>
 
   <p>New Password: <input type="password" name="password"></p>
   <p>Retype New Password: <input type="password" name="password_confirm"></p>
@@ -16,7 +22,7 @@
       <p><strong><%= flash[:match] %></strong></p><br>
     <% end %>
   <br>
-  
+
   <p><em>Are you not currently an admin and have an admin key? Enter it here: </em><input type="text" name="admin_key"></p>
     <% if flash[:admin_mismatch] %>
       <p><strong><%= flash[:admin_mismatch] %></strong></p><br>

@@ -65,13 +65,6 @@ class UsersController < ApplicationController
     unless params[:admin_key] == ""
       check_admin_key
     end
-
-    if @user.errors.messages != {}
-      flash[:messages] = "#{@user.errors.full_messages[0]}. Please try again."
-      redirect "/users/#{@user.id}/edit"
-    else
-      redirect "/users/#{@user.id}"
-    end
   end
 
   get '/login' do

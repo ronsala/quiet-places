@@ -15,6 +15,7 @@
       <p><strong><%= flash[:title] %></strong></p>
     <% end %>
   <br>
+  
   <p>TV On?:
   <select name="tv">
     <option value="--">--</option>
@@ -52,13 +53,15 @@
     <option value="10">10</option>
   </select></p>
   <br>
+
   <p>Comments *:</p>
-    <% if flash[:body] %>
-      <p><strong><%= flash[:body] %></strong></p>
-    <% end %>
   <p><textarea id="body" name="body"
             rows="6">
   </textarea></p>
+    <% if flash[:body] %>
+      <p><strong><%= flash[:body] %></strong></p>
+    <% end %>
   <br>
+
   <input class="button" type="submit" id="submit" value="Submit">
 </form><br>

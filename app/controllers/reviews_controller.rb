@@ -78,9 +78,9 @@ class ReviewsController < ApplicationController
 
     if @review.errors.any? 
       if @review.errors.messages[:title]
-        flash[:title] = "Name #{@review.errors.messages[:name][0]}. Please try again."
+        flash[:title] = "Name #{@review.errors.messages[:title][0]}. Please try again."
       elsif @review.errors.messages[:body]
-        flash[:body] = "Street #{@review.errors.messages[:street][0]}. Please try again."
+        flash[:body] = "Comments #{@review.errors.messages[:body][0]}. Please try again."
       end
 
       redirect "/reviews/#{@review.id}/edit"

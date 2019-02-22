@@ -6,7 +6,12 @@
 
 <form action="/reviews/<%= @review.id %>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="patch">
+
   <p>Title: <input type="text" name="title" size="35" value="<%= @review.title %>"></p>
+    <% if flash[:title] %>
+      <p><strong><%= flash[:title] %></strong></p>
+    <% end %>
+
   <p>TV on?: <%= @review.tv %></p>
   <p>Change: <select name="tv">
     <option value="--">--</option>
@@ -14,6 +19,7 @@
     <option value="no">No</option>
     </select></p></p>
   <br>
+
   <p>Current Overall Volume: <%= @review.volume %></p>
   <p>New Overall Volume:
     <select name="volume">
@@ -30,6 +36,7 @@
     <option value="10">10</option>
   </select></p>
   <br>
+
   <p>Current Quality of Experience: <%= @review.quality %></p>
   <p>New Quality of Experience:
   <select name="quality">
@@ -46,8 +53,13 @@
     <option value="10">10</option>
   </select></p>
   <br>
-  <p>Review:</p>
+
+  <p>Comments:</p>
   <textarea id="body" name="body" rows="6"><%= @review.body %></textarea></p>
+    <% if flash[:body] %>
+      <p><strong><%= flash[:body] %></strong></p>
+    <% end %>
   <br>
+
   <input class="button" type="submit" id="submit" value="Submit">
 </form><br>

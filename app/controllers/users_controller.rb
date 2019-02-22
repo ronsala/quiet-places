@@ -48,10 +48,6 @@ class UsersController < ApplicationController
 
     @user.update(username: params[:username], email: params[:email])
 
-    unless params[:password] = ""
-      @user.update(password: params[:password])
-    end
-
     if @user.errors.any? 
       if @user.errors.messages[:username]
         flash[:username] = "Name #{@user.errors.messages[:username][0]}. Please try again."

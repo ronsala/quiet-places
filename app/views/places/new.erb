@@ -15,11 +15,8 @@
       <p><strong><%= flash[:city] %></strong></p>
     <% end %>
   <p>State *:</p>
-    <% if flash[:state] %>
-      <p><strong><%= flash[:state] %></strong></p>
-    <% end %>
-  <select name="state">
-    <option value="--">--</option>
+  <p><select name="state">
+    <option value="">--</option>
     <option value="AL">Alabama</option>
     <option value="AK">Alaska</option>
     <option value="AZ">Arizona</option>
@@ -70,8 +67,11 @@
     <option value="WV">West Virginia</option>
     <option value="WI">Wisconsin</option>
     <option value="WY">Wyoming</option>
-  </select><br><br>
-
+  </select></p>
+    <% if flash[:state] %>
+      <p><strong><%= flash[:state] %></strong></p>
+    <% end %>
+  <br>
   <p>Category:</p>
     <div>
       <input type="radio" id="restaurant" name="category" value="restaurant"

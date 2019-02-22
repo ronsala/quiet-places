@@ -17,19 +17,19 @@ class UsersController < ApplicationController
     end
   end
 
-  get "/users/:id" do
-    @user = User.find(params[:id])
-    @places = @user.places.sort_by { |place | place.name }
-    @reviews = @user.reviews.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
-    erb :"/users/show"
-  end
-
   get "/users/:id/edit" do
     @user = User.find(params[:id])
     unless current_user == @user || current_user.is_admin?
       redirect "/"
     end
     erb :"/users/edit"
+  end
+
+  get "/users/:id" do
+    @user = User.find(params[:id])
+    @places = @user.places.sort_by { |place | place.name }
+    @reviews = @user.reviews.sort_by { | review | [ review.place.name.downcase, review.title.downcase ] }
+    erb :"/users/show"
   end
 
   patch "/users/:id" do
@@ -39,32 +39,27 @@ class UsersController < ApplicationController
       redirect "/"
     end
 
-    @user.errors.clear
-
     if params[:password] != params[:password_confirm]
       flash[:match] = "Passwords must match. Please try again."
       redirect request.referrer
     end
 
-    unless params[:password] == params[:password_confirm]
-      redirect "/users/#{@user.id}/edit"
+    @user.errors.clear
+
+    @user.update(username: params[:username], email: params[:email])
+
+    if @user.errors.any? 
+      if @user.errors.messages[:username]
+        flash[:username] = "Name #{@user.errors.messages[:username][0]}. Please try again."
+      elsif @user.errors.messages[:email]
+        flash[:email] = "Email #{@user.errors.messages[:email][0]}. Please try again."
+      elsif @user.errors.messages[:password]
+        flash[:password] = "Password #{@user.errors.messages[:password][0]}. Please try again."
+      end
+      redirect "/users/:id/edit"
     end
 
-    unless params[:username] == ""
-      @user.update(username: params[:username])
-    end
-
-    unless params[:email] == ""
-      @user.update(email: params[:email])
-    end
-
-    unless params[:password] == ""
-      @user.update(password: params[:password])
-    end
-
-    unless params[:admin_key] == ""
       check_admin_key
-    end
   end
 
   get '/login' do

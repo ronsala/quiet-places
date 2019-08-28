@@ -46,7 +46,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.11.3)
     mustermann (1.0.3)
-    nokogiri (1.10.1)
+    nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -120,6 +120,7 @@ DEPENDENCIES
   capybara
   database_cleaner!
   dotenv
+  nokogiri (>= 1.10.4)
   pry
   rack-test
   rake
@@ -135,4 +136,4 @@ DEPENDENCIES
   tux
 
 BUNDLED WITH
-   1.16.6
+   1.17.3

@@ -14,6 +14,7 @@ gem "tux"
 gem "sysrandom"
 gem "dotenv"
 gem "sinatra-flash"
+gem "nokogiri", ">= 1.10.4"
 
 group :test do
   gem 'rspec'
